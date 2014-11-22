@@ -112,7 +112,7 @@ datum
 			color = "#C80000" // rgb: 200, 0, 0
 
 			glass_icon_state = "glass_red"
-			glass_name = "glass of tomato juice"
+			glass_name = "tomato juice"
 			glass_desc = "Are you sure this is tomato juice?"
 
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
@@ -209,7 +209,7 @@ datum
 			custom_metabolism = 0.01
 
 			glass_icon_state = "glass_clear"
-			glass_name = "glass of water"
+			glass_name = "water"
 			glass_desc = "The father of all refreshments."
 
 			reaction_turf(var/turf/simulated/T, var/volume)
@@ -277,7 +277,7 @@ datum
 			color = "#E0E8EF" // rgb: 224, 232, 239
 
 			glass_icon_state = "glass_clear"
-			glass_name = "glass of holy water"
+			glass_name = "holy water"
 			glass_desc = "An ashen-obsidian-water mix, this solution will alter certain sections of the brain's rationality."
 
 			on_mob_life(var/mob/living/M as mob)
@@ -646,7 +646,7 @@ datum
 			color = "#FFFFFF" // rgb: 255, 255, 255
 
 			glass_icon_state = "iceglass"
-			glass_name = "glass of sugar"
+			glass_name = "sugar"
 			glass_desc = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
 			glass_iconmod = "noisy"
 
@@ -926,7 +926,7 @@ datum
 			overdose = REAGENTS_OVERDOSE
 
 			glass_icon_state = "dr_gibb_glass"
-			glass_name = "glass of welder fuel"
+			glass_name = "welder fuel"
 			glass_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 
 			reaction_obj(var/obj/O, var/volume)
@@ -1905,7 +1905,7 @@ datum
 			overdose = REAGENTS_OVERDOSE/2
 
 			glass_icon_state = "beerglass"
-			glass_name = "glass of beer"
+			glass_name = "beer"
 			glass_desc = "A freezing pint of beer"
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -2266,7 +2266,7 @@ datum
 			color = "#403010" // rgb: 64, 48, 16
 
 			glass_icon_state  = "chocolateglass"
-			glass_name = "glass of hot chocolate"
+			glass_name = "hot chocolate"
 			glass_desc = "Made with love! And cocoa beans."
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2520,7 +2520,7 @@ datum
 			color = "#E78108" // rgb: 231, 129, 8
 
 			glass_icon_state = "glass_orange"
-			glass_name = "glass of orange juice"
+			glass_name = "orange juice"
 			glass_desc = "Vitamins! Yay!"
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2535,7 +2535,7 @@ datum
 			color = "#731008" // rgb: 115, 16, 8
 
 			glass_icon_state = "glass_red"
-			glass_name = "glass of tomato juice"
+			glass_name = "tomato juice"
 			glass_desc = "Are you sure this is tomato juice?"
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2550,7 +2550,7 @@ datum
 			color = "#365E30" // rgb: 54, 94, 48
 
 			glass_icon_state = "glass_green"
-			glass_name = "glass of lime juice"
+			glass_name = "lime juice"
 			glass_desc = "A glass of sweet-sour lime juice"
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2565,7 +2565,7 @@ datum
 			color = "#973800" // rgb: 151, 56, 0
 
 			glass_icon_state = "carrotjuice"
-			glass_name = "glass of carrot juice"
+			glass_name = "carrot juice"
 			glass_desc = "It is just like a carrot but without crunching."
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2589,7 +2589,7 @@ datum
 			color = "#990066" // rgb: 153, 0, 102
 
 			glass_icon_state = "berryjuice"
-			glass_name = "glass of berry juice"
+			glass_name = "berry juice"
 			glass_desc = "Berry juice. Or maybe it's jam. Who cares?"
 
 		drink/grapejuice
@@ -2599,7 +2599,7 @@ datum
 			color = "#863333" // rgb: 134, 51, 51
 
 			glass_icon_state = "grapejuice"
-			glass_name = "glass of grape juice"
+			glass_name = "grape juice"
 			glass_desc = "It's grrrrrape!"
 
 		drink/grapesoda
@@ -2610,7 +2610,7 @@ datum
 			adj_drowsy 	= 	-3
 
 			glass_icon_state = "gsodaglass"
-			glass_name = "glass of grape soda"
+			glass_name = "grape soda"
 			glass_desc = "Looks like a delicious drink!"
 			glass_special = list(FIZZ)
 			
@@ -2621,7 +2621,7 @@ datum
 			color = "#863353" // rgb: 134, 51, 83
 
 			glass_icon_state = "poisonberryjuice"
-			glass_name = "glass of poison berry juice"
+			glass_name = "poison berry juice"
 			glass_desc = "A glass of deadly juice."
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2636,7 +2636,7 @@ datum
 			color = "#863333" // rgb: 134, 51, 51
 
 			glass_icon_state = "glass_red"
-			glass_name = "glass of watermelon juice"
+			glass_name = "watermelon juice"
 			glass_desc = "Delicious juice made from watermelon."
 
 		drink/lemonjuice
@@ -2646,7 +2646,7 @@ datum
 			color = "#863333" // rgb: 175, 175, 0
 
 			glass_icon_state = "lemonjuice"
-			glass_name = "glass of lemon juice"
+			glass_name = "lemon juice"
 			glass_desc = "Sour..."
 
 		drink/banana
@@ -2656,7 +2656,7 @@ datum
 			color = "#863333" // rgb: 175, 175, 0
 
 			glass_icon_state = "banana"
-			glass_name = "glass of banana juice"
+			glass_name = "banana juice"
 			glass_desc = "The raw essence of a banana. HONK!"
 
 		drink/nothing
@@ -2665,7 +2665,7 @@ datum
 			description = "Absolutely nothing."
 
 			glass_icon_state = "nothing"
-			glass_name = "glass of nothing"
+			glass_name = "nothing"
 			glass_desc = "Absolutely nothing."
 
 		drink/potato_juice
@@ -2676,7 +2676,7 @@ datum
 			color = "#302000" // rgb: 48, 32, 0
 
 			glass_icon_state = "glass_brown"
-			glass_name = "glass of potato juice"
+			glass_name = "potato juice"
 			glass_desc = "Juice from a potato. Bleh."
 
 		drink/milk
@@ -2686,7 +2686,7 @@ datum
 			color = "#DFDFDF" // rgb: 223, 223, 223
 
 			glass_icon_state = "glass_white"
-			glass_name = "glass of milk"
+			glass_name = "milk"
 			glass_desc = "White and nutritious goodness!"
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2702,7 +2702,7 @@ datum
 			color = "#DFDFC7" // rgb: 223, 223, 199
 
 			glass_icon_state = "glass_white"
-			glass_name = "glass of soy milk"
+			glass_name = "soy milk"
 			glass_desc = "White and nutritious soy goodness!"
 
 		drink/milk/cream
@@ -2712,7 +2712,7 @@ datum
 			color = "#DFD7AF" // rgb: 223, 215, 175
 
 			glass_icon_state = "glass_white"
-			glass_name = "glass of cream"
+			glass_name = "cream"
 			glass_desc = "Ewwww..."
 
 		drink/grenadine
@@ -2722,7 +2722,7 @@ datum
 			color = "#FF004F" // rgb: 255, 0, 79
 
 			glass_icon_state = "grenadineglass"
-			glass_name = "glass of grenadine syrup"
+			glass_name = "grenadine syrup"
 			glass_desc = "Sweet and tangy, a bar syrup used to add color or flavor to drinks."
 			glass_center_of_mass = list("x"=17, "y"=6)
 
@@ -2735,7 +2735,7 @@ datum
 			adj_temp = 5
 
 			glass_icon_state = "chocolateglass"
-			glass_name = "glass of hot chocolate"
+			glass_name = "hot chocolate"
 			glass_desc = "Made with love! And cocoa beans."
 
 		drink/coffee
@@ -2749,7 +2749,7 @@ datum
 			adj_temp = 25
 
 			glass_icon_state = "hot_coffee"
-			glass_name = "cup of coffee"
+			glass_name = "coffee"
 			glass_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2768,7 +2768,7 @@ datum
 			adj_temp = -5
 
 			glass_icon_state = "icedcoffeeglass"
-			glass_name = "glass of iced coffee"
+			glass_name = "iced coffee"
 			glass_desc = "A drink to perk you up and refresh you!"
 			glass_special = list(ICE)
 
@@ -2781,7 +2781,7 @@ datum
 			adj_temp = 5
 
 			glass_icon_state = "soy_latte"
-			glass_name = "glass of soy latte"
+			glass_name = "soy latte"
 			glass_desc = "A nice and refrshing beverage while you are reading."
 			glass_center_of_mass = list("x"=15, "y"=9)
 
@@ -2800,7 +2800,7 @@ datum
 			adj_temp = 5
 
 			glass_icon_state = "cafe_latte"
-			glass_name = "glass of cafe latte"
+			glass_name = "cafe latte"
 			glass_desc = "A nice, strong and refreshing beverage while you are reading."
 			glass_center_of_mass = list("x"=15, "y"=9)
 
@@ -2821,7 +2821,7 @@ datum
 			adj_temp = 20
 
 			glass_icon_state = "bigteacup"
-			glass_name = "cup of tea"
+			glass_name = "tea"
 			glass_desc = "Tasty black tea, it has antioxidants, it's good for you!"
 
 			on_mob_life(var/mob/living/M as mob)
@@ -2838,7 +2838,7 @@ datum
 			adj_temp = -5
 
 			glass_icon_state = "icedteaglass"
-			glass_name = "glass of iced tea"
+			glass_name = "iced tea"
 			glass_desc = "No relation to a certain rap artist/ actor."
 			glass_center_of_mass = list("x"=15, "y"=10)
 			glass_special = list(ICE)
@@ -2857,7 +2857,7 @@ datum
 			adj_sleepy = -2
 
 			glass_icon_state = "glass_clear"
-			glass_name = "glass of tonic water"
+			glass_name = "tonic water"
 			glass_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 
 		drink/cold/sodawater
@@ -2869,7 +2869,7 @@ datum
 			adj_drowsy = -3
 
 			glass_icon_state = "glass_clear"
-			glass_name = "glass of soda water"
+			glass_name = "soda water"
 			glass_desc = "Soda water. Why not make a scotch and soda?"
 			glass_special = list(FIZZ)
 
@@ -2881,7 +2881,7 @@ datum
 			color = "#619494" // rgb: 97, 148, 148
 
 			glass_icon_state = "iceglass"
-			glass_name = "glass of ice"
+			glass_name = "ice"
 			glass_desc = "Generally, you're supposed to put something else in there too..."
 			glass_iconmod = NOISY_ICON
 
@@ -2894,7 +2894,7 @@ datum
 			adj_drowsy 	= 	-3
 
 			glass_icon_state  = "glass_brown"
-			glass_name = "glass of Space Cola"
+			glass_name = "Space Cola"
 			glass_desc = "A glass of refreshing Space Cola"
 			glass_special = list(FIZZ)
 
@@ -2906,7 +2906,7 @@ datum
 			adj_sleepy = -2
 
 			glass_icon_state = "nuka_colaglass"
-			glass_name = "glass of Nuka-Cola"
+			glass_name = "Nuka-Cola"
 			glass_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
 			glass_center_of_mass = list("x"=16, "y"=6)
 			glass_special = list(FIZZ)
@@ -2928,7 +2928,7 @@ datum
 			adj_sleepy = -1
 
 			glass_icon_state = "Space_mountain_wind_glass"
-			glass_name = "glass of Space Mountain Wind"
+			glass_name = "Space Mountain Wind"
 			glass_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
 			glass_special = list(FIZZ)
 
@@ -2940,7 +2940,7 @@ datum
 			adj_drowsy = -6
 
 			glass_icon_state = "dr_gibb_glass"
-			glass_name = "glass of Dr. Gibb"
+			glass_name = "Dr. Gibb"
 			glass_desc = "Dr. Gibb. Not as dangerous as the name might imply."
 
 		drink/cold/space_up
@@ -2951,7 +2951,7 @@ datum
 			adj_temp = -8
 
 			glass_icon_state = "space-up_glass"
-			glass_name = "glass of Space-up"
+			glass_name = "Space-up"
 			glass_desc = "Space-up. It helps keep your cool."
 			glass_special = list(FIZZ)
 
@@ -2963,7 +2963,7 @@ datum
 			adj_temp = -8
 
 			glass_icon_state = "lemonlime"
-			glass_name = "glass of lemon lime soda"
+			glass_name = "lemon lime soda"
 			glass_desc = "A tangy substance made of 0.5% natural citrus!"
 			glass_special = list(FIZZ)
 
@@ -2974,7 +2974,7 @@ datum
 			color = "#FFFF00" // rgb: 255, 255, 0
 
 			glass_icon_state = "lemonadeglass"
-			glass_name = "glass of lemonade"
+			glass_name = "lemonade"
 			glass_desc = "Oh the nostalgia..."
 			glass_special = list(FIZZ)
 
@@ -2985,7 +2985,7 @@ datum
 			color = "#CCCC99" // rgb: 204, 204, 153
 
 			glass_icon_state = "kiraspecial"
-			glass_name = "glass of Kira Special"
+			glass_name = "Kira Special"
 			glass_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
 			glass_center_of_mass = list("x"=16, "y"=12)
 			glass_special = list(FIZZ)
@@ -2998,7 +2998,7 @@ datum
 			adj_temp = - 2
 
 			glass_icon_state = "brownstar"
-			glass_name = "glass of Brown Star"
+			glass_name = "Brown Star"
 			glass_desc = "It's not what it sounds like..."
 
 		drink/cold/milkshake
@@ -3009,7 +3009,7 @@ datum
 			adj_temp = -9
 
 			glass_icon_state = "milkshake"
-			glass_name = "glass of milkshake"
+			glass_name = "milkshake"
 			glass_desc = "Glorious brainfreezing mixture."
 			glass_center_of_mass = list("x"=16, "y"=7)
 
@@ -3033,7 +3033,7 @@ datum
 			color = "#485000" // rgb:72, 080, 0
 
 			glass_icon_state = "rewriter"
-			glass_name = "glass of Rewriter"
+			glass_name = "Rewriter"
 			glass_desc = "The secret of the sanctuary of the Libarian..."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -3052,7 +3052,7 @@ datum
 			nutriment_factor = 1 * FOOD_METABOLISM
 
 			glass_icon_state = "doctorsdelightglass"
-			glass_name = "glass of The Doctor's Delight"
+			glass_name = "The Doctor's Delight"
 			glass_desc = "A healthy mixture of juices, guaranteed to keep you healthy until the next toolboxing takes place."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3079,7 +3079,7 @@ datum
 			color = "#666300" // rgb: 102, 99, 0
 
 			glass_icon_state = "atomicbombglass"
-			glass_name = "glass of Atomic Bomb"
+			glass_name = "Atomic Bomb"
 			glass_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
 			glass_center_of_mass = list("x"=15, "y"=7)
 
@@ -3108,7 +3108,7 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 
 			glass_icon_state = "gargleblasterglass"
-			glass_name = "glass of Pan-Galactic Gargle Blaster"
+			glass_name = "Pan-Galactic Gargle Blaster"
 			glass_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 			glass_center_of_mass = list("x"=17, "y"=6)
 
@@ -3136,7 +3136,7 @@ datum
 			color = "#2E2E61" // rgb: 46, 46, 97
 
 			glass_icon_state = "neurotoxinglass"
-			glass_name = "glass of Neurotoxin"
+			glass_name = "Neurotoxin"
 			glass_desc = "A drink that is guaranteed to knock you silly."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3166,7 +3166,7 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 
 			glass_icon_state = "hippiesdelightglass"
-			glass_name = "glass of Hippie's Delight"
+			glass_name = "Hippie's Delight"
 			glass_desc = "A drink enjoyed by people during the 1960's."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3230,7 +3230,7 @@ datum
 			var/pass_out = 400	//amount absorbed after which mob starts passing out
 
 			glass_icon_state = "glass_clear"
-			glass_name = "glass of ethanol"
+			glass_name = "ethanol"
 			glass_desc = "A well-known alcohol with a variety of applications."
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
@@ -3302,7 +3302,7 @@ datum
 			nutriment_factor = 1 * FOOD_METABOLISM
 
 			glass_icon_state = "beerglass"
-			glass_name = "glass of beer"
+			glass_name = "beer"
 			glass_desc = "A freezing pint of beer"
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3322,7 +3322,7 @@ datum
 			adj_sleepy = -2
 
 			glass_icon_state = "kahluaglass"
-			glass_name = "glass of RR coffee liquor"
+			glass_name = "RR coffee liquor"
 			glass_desc = "DAMN, THIS THING LOOKS ROBUST"
 			glass_center_of_mass = list("x"=15, "y"=7)
 
@@ -3340,7 +3340,7 @@ datum
 			dizzy_adj = 4
 
 			glass_icon_state = "whiskeyglass"
-			glass_name = "glass of whiskey"
+			glass_name = "whiskey"
 			glass_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3354,7 +3354,7 @@ datum
 			slur_start = 30		//amount absorbed after which mob starts slurring
 
 			glass_icon_state = "whiskeyglass"
-			glass_name = "glass of special blend whiskey"
+			glass_name = "special blend whiskey"
 			glass_desc = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3367,7 +3367,7 @@ datum
 			nutriment_factor = 1 * FOOD_METABOLISM
 
 			glass_icon_state = "thirteen_loko_glass"
-			glass_name = "glass of Thirteen Loko"
+			glass_name = "Thirteen Loko"
 			glass_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass."
 
 			on_mob_life(var/mob/living/M as mob)
@@ -3386,7 +3386,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "ginvodkaglass"
-			glass_name = "glass of vodka"
+			glass_name = "vodka"
 			glass_desc = "The glass contain wodka. Xynta."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3404,7 +3404,7 @@ datum
 			nutriment_factor = 2 * FOOD_METABOLISM
 
 			glass_icon_state = "glass_brown"
-			glass_name = "glass of bilk"
+			glass_name = "bilk"
 			glass_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
 
 		ethanol/threemileisland
@@ -3415,7 +3415,7 @@ datum
 			boozepwr = 5
 
 			glass_icon_state = "threemileislandglass"
-			glass_name = "glass of Three Mile Island iced tea"
+			glass_name = "Three Mile Island iced tea"
 			glass_desc = "A glass of this is sure to prevent a meltdown."
 			glass_center_of_mass = list("x"=16, "y"=2)
 
@@ -3433,7 +3433,7 @@ datum
 			dizzy_adj = 3
 
 			glass_icon_state = "ginvodkaglass"
-			glass_name = "glass of gin"
+			glass_name = "gin"
 			glass_desc = "A crystal clear glass of Griffeater gin."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3445,7 +3445,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "tequillaglass"
-			glass_name = "glass of Tequilla"
+			glass_name = "Tequilla"
 			glass_desc = "Now all that's missing is the weird colored shades!"
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3457,7 +3457,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "vermouthglass"
-			glass_name = "glass of vermouth"
+			glass_name = "vermouth"
 			glass_desc = "You wonder why you're even drinking this straight."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3472,7 +3472,7 @@ datum
 			confused_start = 145	//amount absorbed after which mob starts confusing directions
 
 			glass_icon_state = "wineglass"
-			glass_name = "glass of wine"
+			glass_name = "wine"
 			glass_desc = "A very classy looking drink."
 			glass_center_of_mass = list("x"=15, "y"=7)
 
@@ -3486,7 +3486,7 @@ datum
 			confused_start = 115	//amount absorbed after which mob starts confusing directions
 
 			glass_icon_state = "cognacglass"
-			glass_name = "glass of cognac"
+			glass_name = "cognac"
 			glass_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
 			glass_center_of_mass = list("x"=16, "y"=6)
 
@@ -3502,7 +3502,7 @@ datum
 			confused_start = 90	//amount absorbed after which mob starts confusing directions
 
 			glass_icon_state = "glass_brown2"
-			glass_name = "glass of Hooch"
+			glass_name = "Hooch"
 			glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 		ethanol/ale
@@ -3513,7 +3513,7 @@ datum
 			boozepwr = 1
 
 			glass_icon_state = "aleglass"
-			glass_name = "glass of ale"
+			glass_name = "ale"
 			glass_desc = "A freezing pint of delicious ale"
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3528,7 +3528,7 @@ datum
 			confused_start = 30
 
 			glass_icon_state = "absintheglass"
-			glass_name = "glass of absinthe"
+			glass_name = "absinthe"
 			glass_desc = "Wormwood, anise, oh my."
 			glass_center_of_mass = list("x"=16, "y"=5)
 
@@ -3543,7 +3543,7 @@ datum
 			confused_start = 1
 
 			glass_icon_state = "pwineglass"
-			glass_name = "glass of ???"
+			glass_name = "???"
 			glass_desc = "A black ichor with an oily purple sheer on top. Are you sure you should drink this?"
 			glass_center_of_mass = list("x"=16, "y"=5)
 
@@ -3602,7 +3602,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "rumglass"
-			glass_name = "glass of rum"
+			glass_name = "rum"
 			glass_desc = "Now you want to Pray for a pirate suit, don't you?"
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3614,7 +3614,7 @@ datum
 			boozepwr = 1
 
 			glass_icon_state = "rumglass"
-			glass_name = "glass of rum"
+			glass_name = "rum"
 			glass_desc = "Now you want to Pray for a pirate suit, don't you?"
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3631,7 +3631,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "ginvodkaglass"
-			glass_name = "glass of sake"
+			glass_name = "sake"
 			glass_desc = "A glass of sake."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3646,7 +3646,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "ginvodkaglass"
-			glass_name = "glass of Goldschlager"
+			glass_name = "Goldschlager"
 			glass_desc = "100 proof that teen girls will drink anything with gold in it."
 			glass_center_of_mass = list("x"=16, "y"=12)
 
@@ -3658,7 +3658,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "patronglass"
-			glass_name = "glass of Patron"
+			glass_name = "Patron"
 			glass_desc = "Drinking patron in the bar, with all the subpar ladies."
 			glass_center_of_mass = list("x"=7, "y"=8)
 
@@ -3670,7 +3670,7 @@ datum
 			boozepwr = 1
 
 			glass_icon_state = "gintonicglass"
-			glass_name = "glass of gin and tonic"
+			glass_name = "gin and tonic"
 			glass_desc = "A mild but still great cocktail. Drink up, like a true Englishman."
 			glass_center_of_mass = list("x"=16, "y"=7)
 
@@ -3682,7 +3682,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "cubalibreglass"
-			glass_name = "glass of Cuba Libre"
+			glass_name = "Cuba Libre"
 			glass_desc = "A classic mix of rum and cola."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3694,7 +3694,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "whiskeycolaglass"
-			glass_name = "glass of whiskey cola"
+			glass_name = "whiskey cola"
 			glass_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -3706,7 +3706,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "martiniglass"
-			glass_name = "glass of classic martini"
+			glass_name = "classic martini"
 			glass_desc = "Damn, the bartender even stirred it, not shook it."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -3718,7 +3718,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "martiniglass"
-			glass_name = "glass of vodka martini"
+			glass_name = "vodka martini"
 			glass_desc ="A bastardisation of the classic martini. Still great."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -3730,7 +3730,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "whiterussianglass"
-			glass_name = "glass of White Russian"
+			glass_name = "White Russian"
 			glass_desc = "A very nice looking drink. But that's just, like, your opinion, man."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -3742,7 +3742,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "screwdriverglass"
-			glass_name = "glass of Screwdriver"
+			glass_name = "Screwdriver"
 			glass_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 			glass_center_of_mass = list("x"=15, "y"=10)
 
@@ -3754,7 +3754,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "booger"
-			glass_name = "glass of Booger"
+			glass_name = "Booger"
 			glass_desc = "Ewww..."
 
 		ethanol/bloody_mary
@@ -3765,7 +3765,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "bloodymaryglass"
-			glass_name = "glass of Bloody Mary"
+			glass_name = "Bloody Mary"
 			glass_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
 
 		ethanol/brave_bull
@@ -3776,7 +3776,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "bravebullglass"
-			glass_name = "glass of Brave Bull"
+			glass_name = "Brave Bull"
 			glass_desc = "Tequilla and coffee liquor, brought together in a mouthwatering mixture. Drink up."
 			glass_center_of_mass = list("x"=15, "y"=8)
 
@@ -3788,7 +3788,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "tequillasunriseglass"
-			glass_name = "glass of Tequilla Sunrise"
+			glass_name = "Tequilla Sunrise"
 			glass_desc = "Oh great, now you feel nostalgic about sunrises back on Terra..."
 
 		ethanol/toxins_special
@@ -3800,7 +3800,7 @@ datum
 			boozepwr = 5
 
 			glass_icon_state = "toxinsspecialglass"
-			glass_name = "glass of Toxins Special"
+			glass_name = "Toxins Special"
 			glass_desc = "Whoah, this thing is on FIRE"
 
 			on_mob_life(var/mob/living/M as mob)
@@ -3835,7 +3835,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "irishcreamglass"
-			glass_name = "glass of Irish cream"
+			glass_name = "Irish cream"
 			glass_desc = "It's cream, mixed with whiskey. What else would you expect from the Irish?"
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -3847,7 +3847,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "manlydorfglass"
-			glass_name = "glass of The Manly Dorf"
+			glass_name = "The Manly Dorf"
 			glass_desc = "A manly concotion made from Ale and Beer. Intended for true men only."
 
 		ethanol/longislandicedtea
@@ -3858,7 +3858,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "longislandicedteaglass"
-			glass_name = "glass of Long Island iced tea"
+			glass_name = "Long Island iced tea"
 			glass_desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3870,7 +3870,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "glass_clear"
-			glass_name = "glass of moonshine"
+			glass_name = "moonshine"
 			glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 		ethanol/b52
@@ -3881,7 +3881,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "b52glass"
-			glass_name = "glass of B-52"
+			glass_name = "B-52"
 			glass_desc = "Kahlua, Irish cream, and congac. You will get bombed."
 
 		ethanol/irishcoffee
@@ -3892,7 +3892,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "irishcoffeeglass"
-			glass_name = "glass of Irish coffee"
+			glass_name = "Irish coffee"
 			glass_desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
 			glass_center_of_mass = list("x"=15, "y"=10)
 
@@ -3904,7 +3904,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "margaritaglass"
-			glass_name = "glass of margarita"
+			glass_name = "margarita"
 			glass_desc = "On the rocks with salt on the rim. Arriba~!"
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3916,7 +3916,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "blackrussianglass"
-			glass_name = "glass of Black Russian"
+			glass_name = "Black Russian"
 			glass_desc = "For the lactose-intolerant. Still as classy as a White Russian."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -3928,7 +3928,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "manhattanglass"
-			glass_name = "glass of Manhattan"
+			glass_name = "Manhattan"
 			glass_desc = "The Detective's undercover drink of choice. He never could stomach gin..."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -3940,7 +3940,7 @@ datum
 			boozepwr = 5
 
 			glass_icon_state = "proj_manhattanglass"
-			glass_name = "glass of Manhattan Project"
+			glass_name = "Manhattan Project"
 			glass_desc = "A scienitst drink of choice, for thinking how to blow up the station."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -3957,7 +3957,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "whiskeysodaglass2"
-			glass_name = "glass of whiskey soda"
+			glass_name = "whiskey soda"
 			glass_desc = "Ultimate refreshment."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -3969,7 +3969,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "antifreeze"
-			glass_name = "glass of Anti-freeze"
+			glass_name = "Anti-freeze"
 			glass_desc = "The ultimate refreshment."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -3987,7 +3987,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "b&p"
-			glass_name = "glass of Barefoot"
+			glass_name = "Barefoot"
 			glass_desc = "Barefoot and pregnant"
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -3999,7 +3999,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "snowwhite"
-			glass_name = "glass of Snow White"
+			glass_name = "Snow White"
 			glass_desc = "A cold refreshment."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -4011,7 +4011,7 @@ datum
 			boozepwr = 1
 
 			glass_icon_state = "emeraldglass"
-			glass_name = "glass of melon liquor"
+			glass_name = "melon liquor"
 			glass_desc = "A relatively sweet and fruity 46 proof liquor."
 			glass_center_of_mass = list("x"=16, "y"=5)
 
@@ -4023,7 +4023,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "curacaoglass"
-			glass_name = "glass of blue curacao"
+			glass_name = "blue curacao"
 			glass_desc = "Exotically blue, fruity drink, distilled from oranges."
 			glass_center_of_mass = list("x"=16, "y"=5)
 
@@ -4035,7 +4035,7 @@ datum
 			boozepwr = 0.5
 
 			glass_icon_state = "sdreamglass"
-			glass_name = "glass of Sui Dream"
+			glass_name = "Sui Dream"
 			glass_desc = "A froofy, fruity, and sweet mixed drink. Understanding the name only brings shame."
 			glass_center_of_mass = list("x"=16, "y"=5)
 
@@ -4047,7 +4047,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "demonsblood"
-			glass_name = "glass of Demons' Blood"
+			glass_name = "Demons' Blood"
 			glass_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
 			glass_center_of_mass = list("x"=16, "y"=2)
 
@@ -4061,7 +4061,7 @@ datum
 			slurr_adj = 3
 
 			glass_icon_state = "vodkatonicglass"
-			glass_name = "glass of vodka and tonic"
+			glass_name = "vodka and tonic"
 			glass_desc = "For when a gin and tonic isn't Russian enough."
 			glass_center_of_mass = list("x"=16, "y"=7)
 
@@ -4075,7 +4075,7 @@ datum
 			slurr_adj = 3
 
 			glass_icon_state = "ginfizzglass"
-			glass_name = "glass of gin fizz"
+			glass_name = "gin fizz"
 			glass_desc = "Refreshingly lemony, deliciously dry."
 			glass_center_of_mass = list("x"=16, "y"=7)
 
@@ -4087,7 +4087,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "bahama_mama"
-			glass_name = "glass of Bahama Mama"
+			glass_name = "Bahama Mama"
 			glass_desc = "Tropical cocktail"
 			glass_center_of_mass = list("x"=16, "y"=5)
 
@@ -4101,7 +4101,7 @@ datum
 			slurr_adj = 15
 
 			glass_icon_state = "singulo"
-			glass_name = "glass of Singulo"
+			glass_name = "Singulo"
 			glass_desc = "A blue-space beverage."
 			glass_center_of_mass = list("x"=17, "y"=4)
 
@@ -4113,7 +4113,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "sbitenglass"
-			glass_name = "glass of Sbiten"
+			glass_name = "Sbiten"
 			glass_desc = "A spicy mix of Vodka and Spice. Very hot."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -4131,7 +4131,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "devilskiss"
-			glass_name = "glass of Devil's Kiss"
+			glass_name = "Devil's Kiss"
 			glass_desc = "Creepy time!"
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -4143,7 +4143,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "red_meadglass"
-			glass_name = "glass of red mead"
+			glass_name = "red mead"
 			glass_desc = "A true Viking's beverage, though its color is strange."
 			glass_center_of_mass = list("x"=17, "y"=10)
 
@@ -4157,7 +4157,7 @@ datum
 			nutriment_factor = 1 * FOOD_METABOLISM
 
 			glass_icon_state = "meadglass"
-			glass_name = "glass of mead"
+			glass_name = "mead"
 			glass_desc = "A Viking's beverage, though a cheap one."
 			glass_center_of_mass = list("x"=17, "y"=10)
 
@@ -4169,7 +4169,7 @@ datum
 			boozepwr = 1
 
 			glass_icon_state = "iced_beerglass"
-			glass_name = "glass of iced beer"
+			glass_name = "iced beer"
 			glass_desc = "A beer so frosty, the air around it freezes."
 			glass_center_of_mass = list("x"=16, "y"=7)
 
@@ -4188,7 +4188,7 @@ datum
 			boozepwr = 0.5
 
 			glass_icon_state = "grogglass"
-			glass_name = "glass of grog"
+			glass_name = "grog"
 			glass_desc = "A fine and cepa drink for Space."
 
 		ethanol/aloe
@@ -4199,7 +4199,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "aloe"
-			glass_name = "glass of Aloe"
+			glass_name = "Aloe"
 			glass_desc = "Very, very, very good."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -4211,7 +4211,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "andalusia"
-			glass_name = "glass of Andalusia"
+			glass_name = "Andalusia"
 			glass_desc = "A nice, strange named drink."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -4223,7 +4223,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "alliescocktail"
-			glass_name = "glass of Allies cocktail"
+			glass_name = "Allies cocktail"
 			glass_desc = "A drink made from your allies."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -4236,7 +4236,7 @@ datum
 			boozepwr = 1.5
 
 			glass_icon_state = "acidspitglass"
-			glass_name = "glass of Acid Spit"
+			glass_name = "Acid Spit"
 			glass_desc = "A drink from Nanotrasen. Made from live aliens."
 			glass_center_of_mass = list("x"=16, "y"=7)
 
@@ -4249,7 +4249,7 @@ datum
 			boozepwr = 2
 
 			glass_icon_state = "amasecglass"
-			glass_name = "glass of Amasec"
+			glass_name = "Amasec"
 			glass_desc = "Always handy before COMBAT!!!"
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -4261,7 +4261,7 @@ datum
 			boozepwr = 5
 
 			glass_icon_state = "changelingsting"
-			glass_name = "glass of Changeling Sting"
+			glass_name = "Changeling Sting"
 			glass_desc = "A stingy drink."
 
 		ethanol/irishcarbomb
@@ -4273,7 +4273,7 @@ datum
 			dizzy_adj = 5
 
 			glass_icon_state = "irishcarbomb"
-			glass_name = "glass of Irish Car Bomb"
+			glass_name = "Irish Car Bomb"
 			glass_desc = "An irish car bomb."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -4285,7 +4285,7 @@ datum
 			boozepwr = 5
 
 			glass_icon_state = "syndicatebomb"
-			glass_name = "glass of Syndicate Bomb"
+			glass_name = "Syndicate Bomb"
 			glass_desc = "Tastes like terrorism!"
 			glass_center_of_mass = list("x"=16, "y"=4)
 
@@ -4297,7 +4297,7 @@ datum
 			boozepwr = 3
 
 			glass_icon_state = "erikasurprise"
-			glass_name = "glass of Erika Surprise"
+			glass_name = "Erika Surprise"
 			glass_desc = "The surprise is, it's green!"
 			glass_center_of_mass = list("x"=16, "y"=9)
 
@@ -4310,7 +4310,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "driestmartiniglass"
-			glass_name = "glass of Driest Martini"
+			glass_name = "Driest Martini"
 			glass_desc = "Only for the experienced. You think you see sand floating in the glass."
 			glass_center_of_mass = list("x"=17, "y"=8)
 
@@ -4323,7 +4323,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "bananahonkglass"
-			glass_name = "glass of Banana Honk"
+			glass_name = "Banana Honk"
 			glass_desc = "A drink from Banana Heaven."
 			glass_center_of_mass = list("x"=16, "y"=8)
 
@@ -4336,7 +4336,7 @@ datum
 			boozepwr = 4
 
 			glass_icon_state = "silencerglass"
-			glass_name = "glass of Silencer"
+			glass_name = "Silencer"
 			glass_desc = "A drink from mime Heaven."
 			glass_center_of_mass = list("x"=16, "y"=9)
 
