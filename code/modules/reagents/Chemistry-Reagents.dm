@@ -3139,6 +3139,8 @@ datum
 			glass_name = "Neurotoxin"
 			glass_desc = "A drink that is guaranteed to knock you silly."
 			glass_center_of_mass = list("x"=16, "y"=8)
+			glass_iconmod = "noisy"
+			glass_special = list("neuroright")
 
 			on_mob_life(var/mob/living/carbon/M as mob)
 				if(!M) M = holder.my_atom
