@@ -49,6 +49,7 @@
 	var/glass_addition
 	var/glass_desc
 	var/glass_color
+	w_class = 1
 	icon = 'icons/procedural_drink.dmi'
 
 /obj/item/weapon/glass_extra/stick

@@ -55,3 +55,22 @@
 /obj/item/weapon/storage/box/glasses/wine
 	name = "box of wine glasses"
 	glass_type = /obj/item/weapon/reagent_containers/drinking/wine
+
+/obj/item/weapon/storage/box/glass_extras
+	name = "box of cocktail garnishings"
+	var/extra_type = /obj/item/weapon/glass_extra
+	can_hold = list("/obj/item/weapon/glass_extra")
+	storage_slots = 14
+	New()
+		..()
+
+		for(var/i = 1 to 14)
+			new extra_type(src)
+
+/obj/item/weapon/storage/box/glass_extras/straws
+	name = "box of straws"
+	extra_type = /obj/item/weapon/glass_extra/straw
+
+/obj/item/weapon/storage/box/glass_extras/sticks
+	name = "box of drink sticks"
+	extra_type = /obj/item/weapon/glass_extra/stick

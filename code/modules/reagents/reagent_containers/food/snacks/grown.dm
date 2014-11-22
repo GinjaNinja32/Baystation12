@@ -328,6 +328,8 @@
 	potency = 20
 	filling_color = "#FAAD28"
 	plantname = "orange"
+	slices_num = 5
+	slice_path = /obj/item/weapon/glass_extra/edible/orangeslice
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/whitebeet
 	name = "white-beet"
