@@ -4,6 +4,11 @@
 #define REAGENTS_OVERDOSE 30
 #define REM REAGENTS_EFFECT_MULTIPLIER
 
+// icon overlay definitions to avoid typo errors going undetected
+#define FIZZ "fizz"
+#define ICE "ice"
+#define NOISY_ICON "noisy"
+
 //The reaction procs must ALWAYS set src = null, this detaches the proc from the object (the reagent)
 //so that it can continue working when the reagent is deleted while the proc is still active.
 
@@ -26,6 +31,8 @@ datum
 		var/glass_name = null
 		var/glass_desc = null
 		var/glass_center_of_mass = null
+		var/glass_iconmod = "" // if the drink should have a non-flat-color icon; check top of file for the possibilities
+		var/glass_special = list()
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 
@@ -641,6 +648,7 @@ datum
 			glass_icon_state = "iceglass"
 			glass_name = "glass of sugar"
 			glass_desc = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
+			glass_iconmod = "noisy"
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += 1*REM
@@ -2601,7 +2609,8 @@ datum
 			glass_icon_state = "gsodaglass"
 			glass_name = "glass of grape soda"
 			glass_desc = "Looks like a delicious drink!"
-
+			glass_special = list(FIZZ)
+			
 		drink/poisonberryjuice
 			name = "Poison Berry Juice"
 			id = "poisonberryjuice"
@@ -2758,6 +2767,7 @@ datum
 			glass_icon_state = "icedcoffeeglass"
 			glass_name = "glass of iced coffee"
 			glass_desc = "A drink to perk you up and refresh you!"
+			glass_special = list(ICE)
 
 		drink/coffee/soy_latte
 			name = "Soy Latte"
@@ -2828,6 +2838,7 @@ datum
 			glass_name = "glass of iced tea"
 			glass_desc = "No relation to a certain rap artist/ actor."
 			glass_center_of_mass = list("x"=15, "y"=10)
+			glass_special = list(ICE)
 
 		drink/cold
 			name = "Cold drink"
@@ -2857,6 +2868,7 @@ datum
 			glass_icon_state = "glass_clear"
 			glass_name = "glass of soda water"
 			glass_desc = "Soda water. Why not make a scotch and soda?"
+			glass_special = list(FIZZ)
 
 		drink/cold/ice
 			name = "Ice"
@@ -2868,6 +2880,7 @@ datum
 			glass_icon_state = "iceglass"
 			glass_name = "glass of ice"
 			glass_desc = "Generally, you're supposed to put something else in there too..."
+			glass_iconmod = NOISY_ICON
 
 		drink/cold/space_cola
 			name = "Space Cola"
@@ -2880,6 +2893,7 @@ datum
 			glass_icon_state  = "glass_brown"
 			glass_name = "glass of Space Cola"
 			glass_desc = "A glass of refreshing Space Cola"
+			glass_special = list(FIZZ)
 
 		drink/cold/nuka_cola
 			name = "Nuka Cola"
@@ -2892,6 +2906,7 @@ datum
 			glass_name = "glass of Nuka-Cola"
 			glass_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
 			glass_center_of_mass = list("x"=16, "y"=6)
+			glass_special = list(FIZZ)
 
 			on_mob_life(var/mob/living/M as mob)
 				M.make_jittery(20)
@@ -2912,6 +2927,7 @@ datum
 			glass_icon_state = "Space_mountain_wind_glass"
 			glass_name = "glass of Space Mountain Wind"
 			glass_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
+			glass_special = list(FIZZ)
 
 		drink/cold/dr_gibb
 			name = "Dr. Gibb"
@@ -2934,6 +2950,7 @@ datum
 			glass_icon_state = "space-up_glass"
 			glass_name = "glass of Space-up"
 			glass_desc = "Space-up. It helps keep your cool."
+			glass_special = list(FIZZ)
 
 		drink/cold/lemon_lime
 			name = "Lemon Lime"
@@ -2945,6 +2962,7 @@ datum
 			glass_icon_state = "lemonlime"
 			glass_name = "glass of lemon lime soda"
 			glass_desc = "A tangy substance made of 0.5% natural citrus!"
+			glass_special = list(FIZZ)
 
 		drink/cold/lemonade
 			name = "Lemonade"
@@ -2955,6 +2973,7 @@ datum
 			glass_icon_state = "lemonadeglass"
 			glass_name = "glass of lemonade"
 			glass_desc = "Oh the nostalgia..."
+			glass_special = list(FIZZ)
 
 		drink/cold/kiraspecial
 			name = "Kira Special"
@@ -2966,6 +2985,7 @@ datum
 			glass_name = "glass of Kira Special"
 			glass_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
 			glass_center_of_mass = list("x"=16, "y"=12)
+			glass_special = list(FIZZ)
 
 		drink/cold/brownstar
 			name = "Brown Star"
@@ -4331,3 +4351,7 @@ datum
 
 // Undefine the alias for REAGENTS_EFFECT_MULTIPLER
 #undef REM
+
+#undef FIZZ
+#undef ICE
+#undef NOISY_ICON

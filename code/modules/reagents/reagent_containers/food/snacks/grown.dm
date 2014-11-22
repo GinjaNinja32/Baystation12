@@ -308,6 +308,8 @@
 	potency = 20
 	filling_color = "#28FA59"
 	plantname = "lime"
+	slices_num = 5
+	slice_path = /obj/item/weapon/glass_extra/edible/limeslice
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/lemon
 	name = "lemon"
@@ -316,6 +318,8 @@
 	potency = 20
 	filling_color = "#FAF328"
 	plantname = "lemon"
+	slices_num = 5
+	slice_path = /obj/item/weapon/glass_extra/edible/lemonslice
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/orange
 	name = "orange"

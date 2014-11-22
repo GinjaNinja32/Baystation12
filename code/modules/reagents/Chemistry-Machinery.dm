@@ -159,8 +159,8 @@
 	if(src.beaker)
 		user << "Something is already loaded into the machine."
 		return
-	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food))
-		if(!accept_glass && istype(B,/obj/item/weapon/reagent_containers/food))
+	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food) || istype(B, /obj/item/weapon/reagent_containers/drinking))
+		if(!accept_glass && !istype(B,/obj/item/weapon/reagent_containers/glass))
 			user << "<span class='notice'>This machine only accepts beakers</span>"
 		src.beaker =  B
 		user.drop_item()
