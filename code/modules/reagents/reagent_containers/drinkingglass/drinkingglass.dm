@@ -1,27 +1,5 @@
 #define DRINK_ICON_FILE 'icons/procedural_drink.dmi'
 
-/obj/item/weapon/reagent_containers/drinking/verb/ptest()
-	set src in view()
-	usr << "*----*"
-	if(leftitem) usr << leftitem
-	if(rightitem) usr << rightitem
-	
-	if(reagents.reagent_list.len > 0)
-		var/datum/reagent/R = reagents.get_master_reagent()
-		if(!((R.id == "ice") || ("ice" in R.glass_special))) // if it's not a cup of ice, and it's not already supposed to have ice in, see if the bartender's put ice in it
-			if(reagents.has_reagent("ice", reagents.total_volume / 10)) // 10% ice by volume
-				usr << "ice"
-		
-		if(!("fizz" in R.glass_special))
-			var/totalfizzy = 0
-			for(var/datum/reagent/re in reagents.reagent_list)
-				usr << "[re.name]: [english_list(re.glass_special)]"
-				if("fizz" in re.glass_special)
-					usr << "[re.name] is fizzy, adding [re.volume]"
-					totalfizzy += re.volume
-			usr << "totalfizz = [totalfizzy]; 20% is [reagents.total_volume / 5]"
-	usr << "*----*"
-
 /obj/item/weapon/reagent_containers/drinking
 	name = "glass" // Name when empty
 	var/base_name = "glass" // Name to put in front of drinks, i.e. "[base_name] of [contents]"
@@ -51,19 +29,32 @@
 	if(rightitem)
 		M << rightitem.glass_desc
 	
+	if(has_ice())
+		M << "There is some ice floating in the drink."
+
+	if(has_fizz())
+		M << "It is fizzing slightly."
+
+/obj/item/weapon/reagent_containers/drinking/proc/has_ice()
 	if(reagents.reagent_list.len > 0)
 		var/datum/reagent/R = reagents.get_master_reagent()
 		if(!((R.id == "ice") || ("ice" in R.glass_special))) // if it's not a cup of ice, and it's not already supposed to have ice in, see if the bartender's put ice in it
 			if(reagents.has_reagent("ice", reagents.total_volume / 10)) // 10% ice by volume
-				M << "There is some ice floating in the drink."
-		
+				return 1
+	
+	return 0
+
+/obj/item/weapon/reagent_containers/drinking/proc/has_fizz()
+	if(reagents.reagent_list.len > 0)
+		var/datum/reagent/R = reagents.get_master_reagent()
 		if(!("fizz" in R.glass_special))
 			var/totalfizzy = 0
 			for(var/datum/reagent/re in reagents.reagent_list)
 				if("fizz" in re.glass_special)
 					totalfizzy += re.volume
 			if(totalfizzy >= reagents.total_volume / 5) // 20% fizzy by volume
-				M << "It is fizzing slightly."
+				return 1
+	return 0
 
 /obj/item/weapon/reagent_containers/drinking/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity) return
@@ -160,17 +151,11 @@
 				amnt = k
 				break
 		
-		if(!("ice" in R.glass_special))
-			if(reagents.has_reagent("ice", reagents.total_volume / 10)) // 10% ice by volume
-				over_liquid += "[base_icon][amnt]_ice"
+		if(has_ice())
+			over_liquid += "[base_icon][amnt]_ice"
 		
-		if(!("fizz" in R.glass_special))
-			var/totalfizzy = 0
-			for(var/datum/reagent/re in reagents.reagent_list)
-				if("fizz" in re.glass_special)
-					totalfizzy += re.volume
-			if(totalfizzy >= (reagents.total_volume / 5)) // 20% fizzy by volume
-				over_liquid += "[base_icon][amnt]_fizz"
+		if(has_fizz())
+			over_liquid += "[base_icon][amnt]_fizz"
 		
 		for(var/S in R.glass_special)
 			if("[base_icon]_[S]" in icon_states(DRINK_ICON_FILE))
@@ -200,10 +185,14 @@
 	
 	if(leftitem)
 		var/image/I = image(DRINK_ICON_FILE, src, "[base_icon]_[leftitem.glass_addition]left")
+		if(leftitem.glass_color)
+			I.color = leftitem.glass_color
 		overlays += I
 		
 	if(rightitem)
 		var/image/I = image(DRINK_ICON_FILE, src, "[base_icon]_[rightitem.glass_addition]right")
+		if(rightitem.glass_color)
+			I.color = rightitem.glass_color
 		overlays += I
 
 /obj/item/weapon/reagent_containers/drinking/attack(mob/M as mob, mob/user as mob, def_zone)

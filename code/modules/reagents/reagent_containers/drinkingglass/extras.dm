@@ -48,6 +48,7 @@
 	desc = "This goes on a glass."
 	var/glass_addition
 	var/glass_desc
+	var/glass_color
 	icon = 'icons/procedural_drink.dmi'
 
 /obj/item/weapon/glass_extra/stick
@@ -95,12 +96,21 @@
 
 /obj/item/weapon/glass_extra/edible/lemonslice
 	name = "lemon slice"
-	glass_addition = "lemon"
+	glass_addition = "slice"
+	glass_color = "#FFFF00"
 	glass_desc = "There is a lemon slice on the rim."
 	icon_state = "lemonslice"
 
 /obj/item/weapon/glass_extra/edible/limeslice
 	name = "lime slice"
-	glass_addition = "lime"
+	glass_addition = "slice"
+	glass_color = "#00FF00"
 	glass_desc = "There is a lime slice on the rim."
 	icon_state = "limeslice"
+
+/obj/item/weapon/glass_extra/edible/orangeslice
+	name = "orange slice"
+	glass_addition = "slice"
+	glass_color = "#FF7F00"
+	glass_desc = "There is a lemon slice on the rim."
+	icon_state = "orangeslice"
