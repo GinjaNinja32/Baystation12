@@ -54,3 +54,11 @@
 	filling_states = list(25, 50, 75, 100)
 	volume = 40
 	possible_transfer_amounts = list(5,10,20,40)
+
+/obj/item/weapon/reagent_containers/drinking/wine
+	name = "wine glass"
+	base_name = "glass"
+	base_icon = "wine"
+	filling_states = list(20, 40, 60, 80, 100)
+	volume = 25
+	possible_transfer_amounts = list(5, 10, 15, 25)

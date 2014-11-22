@@ -4,7 +4,7 @@
 	can_hold = list("/obj/item/weapon/reagent_containers/drinking")
 	New()
 		..()
-		
+		// you know how you can never get everything back in the box it came in? Yeah, this is like that. 8 items in a 7-item box.
 		new /obj/item/weapon/reagent_containers/drinking/square(src)
 		new /obj/item/weapon/reagent_containers/drinking/rocks(src)
 		new /obj/item/weapon/reagent_containers/drinking/shake(src)
@@ -12,6 +12,7 @@
 		new /obj/item/weapon/reagent_containers/drinking/shot(src)
 		new /obj/item/weapon/reagent_containers/drinking/pint(src)
 		new /obj/item/weapon/reagent_containers/drinking/mug(src)
+		new /obj/item/weapon/reagent_containers/drinking/wine(src)
 
 /obj/item/weapon/storage/box/glasses
 	name = "box of glasses"
@@ -50,3 +51,7 @@
 /obj/item/weapon/storage/box/glasses/mug
 	name = "box of glass mugs"
 	glass_type = /obj/item/weapon/reagent_containers/drinking/mug
+
+/obj/item/weapon/storage/box/glasses/wine
+	name = "box of wine glasses"
+	glass_type = /obj/item/weapon/reagent_containers/drinking/wine
