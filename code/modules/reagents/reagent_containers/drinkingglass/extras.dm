@@ -112,5 +112,5 @@
 	name = "orange slice"
 	glass_addition = "slice"
 	glass_color = "#FF7F00"
-	glass_desc = "There is a lemon slice on the rim."
+	glass_desc = "There is an orange slice on the rim."
 	icon_state = "orangeslice"
