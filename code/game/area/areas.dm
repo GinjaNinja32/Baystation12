@@ -13,7 +13,6 @@
 	master = src //moved outside the spawn(1) to avoid runtimes in lighting.dm when it references loc.loc.master ~Carn
 	uid = ++global_uid
 	related = list(src)
-	active_areas += src
 	all_areas += src
 
 	if(requires_power)
@@ -65,7 +64,7 @@
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
 	for (var/area/RA in related)
 		for (var/obj/machinery/alarm/AA in RA)
-			if ( !(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+			if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
 				danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)

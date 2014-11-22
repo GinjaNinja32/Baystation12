@@ -348,7 +348,7 @@ var/global/datum/controller/occupations/job_master
 
 	proc/EquipRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
 
-		if(!H)	return 0
+		if(!H)	return null
 
 		var/datum/job/job = GetJob(rank)
 		var/list/spawn_in_storage = list()
@@ -356,6 +356,8 @@ var/global/datum/controller/occupations/job_master
 		if(job)
 
 			//Equip custom gear loadout.
+			var/list/custom_equip_slots = list() //If more than one item takes the same slot, all after the first one spawn in storage.
+			var/list/custom_equip_leftovers = list()
 			if(H.client.prefs.gear && H.client.prefs.gear.len && job.title != "Cyborg" && job.title != "AI")
 
 				for(var/thing in H.client.prefs.gear)
@@ -376,9 +378,12 @@ var/global/datum/controller/occupations/job_master
 							H << "\red Your current job or whitelist status does not permit you to spawn with [thing]!"
 							continue
 
-						if(G.slot)
-							H.equip_to_slot_or_del(new G.path(H), G.slot)
-							H << "\blue Equipping you with [thing]!"
+						if(G.slot && !(G.slot in custom_equip_slots))
+							if(H.equip_to_slot_or_del(new G.path(H), G.slot))
+								H << "\blue Equipping you with [thing]!"
+								custom_equip_slots.Add(G.slot)
+							else
+								custom_equip_leftovers.Add(thing)
 
 						else
 							spawn_in_storage += thing
@@ -387,6 +392,17 @@ var/global/datum/controller/occupations/job_master
 			//Equip job items.
 			job.equip(H)
 			job.apply_fingerprints(H)
+			//If some custom items could not be equipped before, try again now.
+			for(var/thing in custom_equip_leftovers)
+				var/datum/gear/G = gear_datums[thing]
+				if(G.slot in custom_equip_slots)
+					spawn_in_storage += thing
+				else
+					if(H.equip_to_slot_or_del(new G.path(H), G.slot))
+						H << "\blue Equipping you with [thing]!"
+						custom_equip_slots.Add(G.slot)
+					else
+						spawn_in_storage += thing
 		else
 			H << "Your job is [rank] and the game just can't handle it! Please report this bug to an administrator."
 
@@ -445,8 +461,7 @@ var/global/datum/controller/occupations/job_master
 
 			switch(rank)
 				if("Cyborg")
-					H.Robotize()
-					return 1
+					return H.Robotize()
 				if("AI","Clown")	//don't need bag preference stuff!
 				else
 					switch(H.backbag) //BS12 EDIT
@@ -525,7 +540,7 @@ var/global/datum/controller/occupations/job_master
 		H.hud_updateflag |= (1 << ID_HUD)
 		H.hud_updateflag |= (1 << IMPLOYAL_HUD)
 		H.hud_updateflag |= (1 << SPECIALROLE_HUD)
-		return 1
+		return H
 
 
 	proc/spawnId(var/mob/living/carbon/human/H, rank, title)
