@@ -27,6 +27,7 @@ datum
 		var/overdose = 0
 		var/overdose_dam = 1
 		var/scannable = 0 //shows up on health analyzers
+
 		var/glass_icon_state = null
 		var/glass_name = null
 		var/glass_desc = null
@@ -1900,7 +1901,7 @@ datum
 			id = "beer2"
 			description = "An alcoholic beverage made from malted grains, hops, yeast, and water. The fermentation appears to be incomplete." //If the players manage to analyze this, they deserve to know something is wrong.
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFD300" // rgb: 255, 211, 0
 			custom_metabolism = 0.15 // Sleep toxins should always be consumed pretty fast
 			overdose = REAGENTS_OVERDOSE/2
 
@@ -2851,7 +2852,7 @@ datum
 			name = "Tonic Water"
 			id = "tonic"
 			description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#619494" // rgb: 97, 148, 148
 			adj_dizzy = -5
 			adj_drowsy = -3
 			adj_sleepy = -2
@@ -3105,7 +3106,7 @@ datum
 			id = "gargleblaster"
 			description = "Whoah, this stuff looks volatile!"
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#7F00FF" // rgb: 127, 0, 255
 
 			glass_icon_state = "gargleblasterglass"
 			glass_name = "Pan-Galactic Gargle Blaster"
@@ -3165,7 +3166,7 @@ datum
 			id = "hippiesdelight"
 			description = "You just don't get it maaaan."
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FF88FF" // rgb: 255, 136, 255
 
 			glass_icon_state = "hippiesdelightglass"
 			glass_name = "Hippie's Delight"
@@ -3299,7 +3300,7 @@ datum
 			name = "Beer"
 			id = "beer"
 			description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFD300" // rgb: 255, 211, 0
 			boozepwr = 1
 			nutriment_factor = 1 * FOOD_METABOLISM
 
@@ -3317,7 +3318,7 @@ datum
 			name = "Kahlua"
 			id = "kahlua"
 			description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 1.5
 			dizzy_adj = -5
 			adj_drowsy = -3
@@ -3337,7 +3338,7 @@ datum
 			name = "Whiskey"
 			id = "whiskey"
 			description = "A superb and well-aged single-malt whiskey. Damn."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 2
 			dizzy_adj = 4
 
@@ -3350,7 +3351,7 @@ datum
 			name = "Special Blend Whiskey"
 			id = "specialwhiskey"
 			description = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 2
 			dizzy_adj = 4
 			slur_start = 30		//amount absorbed after which mob starts slurring
@@ -3430,7 +3431,7 @@ datum
 			name = "Gin"
 			id = "gin"
 			description = "It's gin. In space. I say, good sir."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#0064C8" // rgb: 0, 100, 200
 			boozepwr = 1
 			dizzy_adj = 3
 
@@ -3511,7 +3512,7 @@ datum
 			name = "Ale"
 			id = "ale"
 			description = "A dark alchoholic beverage made by malted barley and yeast."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 1
 
 			glass_icon_state = "aleglass"
@@ -3600,7 +3601,7 @@ datum
 			name = "Rum"
 			id = "rum"
 			description = "Yohoho and all that."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#ECB633" // rgb: 236, 182, 51
 			boozepwr = 1.5
 
 			glass_icon_state = "rumglass"
@@ -3612,7 +3613,7 @@ datum
 			name = "Deadrum"
 			id = "rum" // duplicate ids?
 			description = "Popular with the sailors. Not very popular with everyone else."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#ECB633" // rgb: 236, 182, 51
 			boozepwr = 1
 
 			glass_icon_state = "rumglass"
@@ -3629,7 +3630,7 @@ datum
 			name = "Sake"
 			id = "sake"
 			description = "Anime's favorite drink."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#DDDDDD" // rgb: 221, 221, 221
 			boozepwr = 2
 
 			glass_icon_state = "ginvodkaglass"
@@ -3644,7 +3645,7 @@ datum
 			name = "Goldschlager"
 			id = "goldschlager"
 			description = "100 proof cinnamon schnapps, made for alcoholic teen girls on spring break."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#F4E46D" // rgb: 244, 228, 109
 			boozepwr = 3
 
 			glass_icon_state = "ginvodkaglass"
@@ -3668,7 +3669,7 @@ datum
 			name = "Gin and Tonic"
 			id = "gintonic"
 			description = "An all time classic, mild cocktail."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#0064C8" // rgb: 0, 100, 200
 			boozepwr = 1
 
 			glass_icon_state = "gintonicglass"
@@ -3704,7 +3705,7 @@ datum
 			name = "Classic Martini"
 			id = "martini"
 			description = "Vermouth with Gin. Not quite how 007 enjoyed it, but still delicious."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#0064C8" // rgb: 0, 100, 200
 			boozepwr = 2
 
 			glass_icon_state = "martiniglass"
@@ -3716,7 +3717,7 @@ datum
 			name = "Vodka Martini"
 			id = "vodkamartini"
 			description = "Vodka with Gin. Not quite how 007 enjoyed it, but still delicious."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#0064C8" // rgb: 0, 100, 200
 			boozepwr = 4
 
 			glass_icon_state = "martiniglass"
@@ -3763,7 +3764,7 @@ datum
 			name = "Bloody Mary"
 			id = "bloodymary"
 			description = "A strange yet pleasurable mixture made of vodka, tomato and lime juice. Or at least you THINK the red stuff is tomato juice."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#B40000" // rgb: 180, 0, 0
 			boozepwr = 3
 
 			glass_icon_state = "bloodymaryglass"
@@ -3774,7 +3775,7 @@ datum
 			name = "Brave Bull"
 			id = "bravebull"
 			description = "It's just as effective as Dutch-Courage!"
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 3
 
 			glass_icon_state = "bravebullglass"
@@ -3798,7 +3799,7 @@ datum
 			id = "phoronspecial"
 			description = "This thing is ON FIRE! CALL THE DAMN SHUTTLE!"
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#7F00FF" // rgb: 127, 0, 255
 			boozepwr = 5
 
 			glass_icon_state = "toxinsspecialglass"
@@ -3816,7 +3817,7 @@ datum
 			id = "beepskysmash"
 			description = "Deny drinking this and prepare for THE LAW."
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#404040" // rgb: 64, 64, 64
 			boozepwr = 4
 
 			glass_icon_state = "beepskysmashglass"
@@ -3833,7 +3834,7 @@ datum
 			name = "Irish Cream"
 			id = "irishcream"
 			description = "Whiskey-imbued cream, what else would you expect from the Irish."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#DDD9A3" // rgb: 221, 217, 163
 			boozepwr = 2
 
 			glass_icon_state = "irishcreamglass"
@@ -3845,7 +3846,7 @@ datum
 			name = "The Manly Dorf"
 			id = "manlydorf"
 			description = "Beer and Ale, brought together in a delicious mix. Intended for true men only."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 2
 
 			glass_icon_state = "manlydorfglass"
@@ -3856,7 +3857,7 @@ datum
 			name = "Long Island Iced Tea"
 			id = "longislandicedtea"
 			description = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#895B1F" // rgb: 137, 91, 31
 			boozepwr = 4
 
 			glass_icon_state = "longislandicedteaglass"
@@ -3868,7 +3869,7 @@ datum
 			name = "Moonshine"
 			id = "moonshine"
 			description = "You've really hit rock bottom now... your liver packed its bags and left last night."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#0064C8" // rgb: 0, 100, 200
 			boozepwr = 4
 
 			glass_icon_state = "glass_clear"
@@ -3884,13 +3885,13 @@ datum
 
 			glass_icon_state = "b52glass"
 			glass_name = "B-52"
-			glass_desc = "Kahlua, Irish cream, and congac. You will get bombed."
+			glass_desc = "Kahlua, Irish cream, and cognac. You will get bombed."
 
 		ethanol/irishcoffee
 			name = "Irish Coffee"
 			id = "irishcoffee"
 			description = "Coffee, and alcohol. More fun than a Mimosa to drink in the morning."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#4C3100" // rgb: 76, 49, 0
 			boozepwr = 3
 
 			glass_icon_state = "irishcoffeeglass"
@@ -3926,7 +3927,7 @@ datum
 			name = "Manhattan"
 			id = "manhattan"
 			description = "The Detective's undercover drink of choice. He never could stomach gin..."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#C13600" // rgb: 193, 54, 0
 			boozepwr = 3
 
 			glass_icon_state = "manhattanglass"
@@ -3938,7 +3939,7 @@ datum
 			name = "Manhattan Project"
 			id = "manhattan_proj"
 			description = "A scientist's drink of choice, for pondering ways to blow up the station."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#C15D00" // rgb: 193, 93, 0
 			boozepwr = 5
 
 			glass_icon_state = "proj_manhattanglass"
@@ -3955,7 +3956,7 @@ datum
 			name = "Whiskey Soda"
 			id = "whiskeysoda"
 			description = "For the more refined griffon."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#EAB300" // rgb: 234, 179, 0
 			boozepwr = 3
 
 			glass_icon_state = "whiskeysodaglass2"
@@ -3967,7 +3968,7 @@ datum
 			name = "Anti-freeze"
 			id = "antifreeze"
 			description = "Ultimate refreshment."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#56DEEA" // rgb: 86, 222, 234
 			boozepwr = 4
 
 			glass_icon_state = "antifreeze"
@@ -3985,7 +3986,7 @@ datum
 			name = "Barefoot"
 			id = "barefoot"
 			description = "Barefoot and pregnant"
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFCDEA" // rgb: 255, 205, 234
 			boozepwr = 1.5
 
 			glass_icon_state = "b&p"
@@ -4071,7 +4072,7 @@ datum
 			name = "Gin Fizz"
 			id = "ginfizz"
 			description = "Refreshingly lemony, deliciously dry."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFFFAE" // rgb: 255, 255, 174
 			boozepwr = 1.5
 			dizzy_adj = 4
 			slurr_adj = 3
@@ -4111,7 +4112,7 @@ datum
 			name = "Sbiten"
 			id = "sbiten"
 			description = "A spicy Vodka! Might be a little hot for the little guys!"
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFA371" // rgb: 255, 163, 113
 			boozepwr = 3
 
 			glass_icon_state = "sbitenglass"
@@ -4154,7 +4155,7 @@ datum
 			id = "mead"
 			description = "A Viking's drink, though a cheap one."
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFBB00" // rgb: 255, 187, 0
 			boozepwr = 1.5
 			nutriment_factor = 1 * FOOD_METABOLISM
 
@@ -4167,7 +4168,7 @@ datum
 			name = "Iced Beer"
 			id = "iced_beer"
 			description = "A beer which is so cold the air around it freezes."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFD300" // rgb: 255, 211, 0
 			boozepwr = 1
 
 			glass_icon_state = "iced_beerglass"
@@ -4186,7 +4187,7 @@ datum
 			id = "grog"
 			description = "Watered down rum, NanoTrasen approves!"
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFBB00" // rgb: 255, 187, 0
 			boozepwr = 0.5
 
 			glass_icon_state = "grogglass"
@@ -4197,7 +4198,7 @@ datum
 			name = "Aloe"
 			id = "aloe"
 			description = "So very, very, very good."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#B7EA75" // rgb: 183, 234, 117
 			boozepwr = 3
 
 			glass_icon_state = "aloe"
@@ -4209,7 +4210,7 @@ datum
 			name = "Andalusia"
 			id = "andalusia"
 			description = "A nice, strangely named drink."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#F4EA4A" // rgb: 244, 234, 74
 			boozepwr = 3
 
 			glass_icon_state = "andalusia"
@@ -4221,7 +4222,7 @@ datum
 			name = "Allies Cocktail"
 			id = "alliescocktail"
 			description = "A drink made from your allies, not as sweet as when made from your enemies."
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#D8AC45" // rgb: 216, 172, 69
 			boozepwr = 2
 
 			glass_icon_state = "alliescocktail"
@@ -4247,7 +4248,7 @@ datum
 			id = "amasec"
 			description = "Official drink of the NanoTrasen Gun-Club!"
 			reagent_state = LIQUID
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FF975D" // rgb: 255, 151, 93
 			boozepwr = 2
 
 			glass_icon_state = "amasecglass"
@@ -4334,7 +4335,7 @@ datum
 			id = "silencer"
 			description = "A drink from Mime Heaven."
 			nutriment_factor = 1 * FOOD_METABOLISM
-			color = "#664300" // rgb: 102, 67, 0
+			color = "#FFFFFF" // rgb: 255, 255, 255
 			boozepwr = 4
 
 			glass_icon_state = "silencerglass"

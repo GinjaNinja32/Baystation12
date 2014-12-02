@@ -109,22 +109,9 @@
 
 /obj/item/weapon/reagent_containers/drinking/New()
 	..()
-		
 	icon_state = base_icon
-	
+
 /obj/item/weapon/reagent_containers/drinking/on_reagent_change()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/drinking/pickup(mob/user)
-	..()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/drinking/dropped(mob/user)
-	..()
-	update_icon()
-
-/obj/item/weapon/reagent_containers/drinking/attack_hand()
-	..()
 	update_icon()
 
 /obj/item/weapon/reagent_containers/drinking/proc/can_add_extra(obj/item/weapon/glass_extra/GE, side)
@@ -167,13 +154,13 @@
 			var/image/I = image(DRINK_ICON_FILE, src, k)
 			overlays += I
 			
-		var/image/filling
+		var/icon/filling
 		// if the fancy icon's available, use it, otherwise fall back on solid color
 		if("[R.glass_iconmod][base_icon][amnt]" in icon_states(DRINK_ICON_FILE))
-			filling = image(DRINK_ICON_FILE, src, "[R.glass_iconmod][base_icon][amnt]")
+			filling = icon(DRINK_ICON_FILE, "[R.glass_iconmod][base_icon][amnt]")
 		else
-			filling = image(DRINK_ICON_FILE, src, "[base_icon][amnt]")
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+			filling = icon(DRINK_ICON_FILE, "[base_icon][amnt]")
+		filling.Blend(mix_color_from_reagents(reagents.reagent_list), ICON_MULTIPLY)
 		overlays += filling
 		
 		for(var/k in over_liquid)
