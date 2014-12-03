@@ -4,6 +4,7 @@
 	base_icon = "square"
 	desc = "Your standard drinking glass."
 	filling_states = list(20, 40, 60, 80, 100)
+	fill_descriptions = list("almost empty", "half-full", "half-full", "almost full", "full")
 	volume = 30
 	possible_transfer_amounts = list(5,10,15,30)
 	
@@ -12,6 +13,7 @@
 	base_name = "glass"
 	base_icon = "rocks"
 	filling_states = list(25, 50, 75, 100)
+	fill_descriptions = list("almost empty", "half-full", "almost full", "full")
 	volume = 20
 	possible_transfer_amounts = list(5,10,20)
 
@@ -20,6 +22,7 @@
 	base_name = "glass"
 	base_icon = "shake"
 	filling_states = list(25, 50, 75, 100)
+	fill_descriptions = list("almost empty", "half-full", "almost full", "full")
 	volume = 30
 	possible_transfer_amounts = list(5,10,15,30)
 
@@ -28,6 +31,7 @@
 	base_name = "glass"
 	base_icon = "cocktail"
 	filling_states = list(33, 66, 100)
+	fill_descriptions = list("almost empty", "half-full", "full")
 	volume = 15
 	possible_transfer_amounts = list(5,10,15)
 
@@ -36,6 +40,7 @@
 	base_name = "shot"
 	base_icon = "shot"
 	filling_states = list(33, 66, 100)
+	fill_descriptions = list("almost empty", "half-full", "full")
 	volume = 15
 	possible_transfer_amounts = list(5, 10)
 
@@ -44,6 +49,7 @@
 	base_name = "pint"
 	base_icon = "pint"
 	filling_states = list(16, 33, 50, 66, 83, 100)
+	fill_descriptions = list("almost empty", "half-full", "half-full", "almost full", "almost full", "full")
 	volume = 60
 	possible_transfer_amounts = list(5,10,15,30,60)
 
@@ -52,6 +58,7 @@
 	base_name = "mug"
 	base_icon = "mug"
 	filling_states = list(25, 50, 75, 100)
+	fill_descriptions = list("almost empty", "half-full", "almost full", "full")
 	volume = 40
 	possible_transfer_amounts = list(5,10,20,40)
 
@@ -60,5 +67,6 @@
 	base_name = "glass"
 	base_icon = "wine"
 	filling_states = list(20, 40, 60, 80, 100)
+	fill_descriptions = list("almost empty", "half-full", "half-full", "almost full", "full")
 	volume = 25
 	possible_transfer_amounts = list(5, 10, 15, 25)

@@ -14,7 +14,7 @@
 	var/obj/item/weapon/glass_extra/leftitem = null
 	var/obj/item/weapon/glass_extra/rightitem = null
 	
-	var/list/center_of_mass = list("x"=16, "y"=8)
+	var/list/center_of_mass = list("x"=16, "y"=10)
 	
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,15,30)
@@ -34,6 +34,15 @@
 
 	if(has_fizz())
 		M << "It is fizzing slightly."
+
+	var/stage = filling_states.len
+	var/percent = round((reagents.total_volume / volume) * 100)
+	for(var/i = 1 to filling_states.len)
+		if(percent <= filling_states[i])
+			stage = i
+			break
+
+	M << "It is [fill_descriptions[stage]]."
 
 /obj/item/weapon/reagent_containers/drinking/proc/has_ice()
 	if(reagents.reagent_list.len > 0)
@@ -122,7 +131,7 @@
 
 /obj/item/weapon/reagent_containers/drinking/update_icon()
 	overlays.Cut()
-		
+
 	if (reagents.reagent_list.len > 0)
 		var/datum/reagent/R = reagents.get_master_reagent()
 		name = "[base_name] of [R.glass_name ? R.glass_name : "something"]"
@@ -139,33 +148,26 @@
 				break
 		
 		if(has_ice())
-			over_liquid += "[base_icon][amnt]_ice"
+			over_liquid |= "[base_icon][amnt]_ice"
 		
 		if(has_fizz())
-			over_liquid += "[base_icon][amnt]_fizz"
+			over_liquid |= "[base_icon][amnt]_fizz"
 		
 		for(var/S in R.glass_special)
 			if("[base_icon]_[S]" in icon_states(DRINK_ICON_FILE))
-				under_liquid += "[base_icon]_[S]"
+				under_liquid |= "[base_icon]_[S]"
 			else if("[base_icon][amnt]_[S]" in icon_states(DRINK_ICON_FILE))
-				over_liquid += "[base_icon][amnt]_[S]"
+				over_liquid |= "[base_icon][amnt]_[S]"
 		
 		for(var/k in under_liquid)
-			var/image/I = image(DRINK_ICON_FILE, src, k)
-			overlays += I
-			
-		var/icon/filling
-		// if the fancy icon's available, use it, otherwise fall back on solid color
-		if("[R.glass_iconmod][base_icon][amnt]" in icon_states(DRINK_ICON_FILE))
-			filling = icon(DRINK_ICON_FILE, "[R.glass_iconmod][base_icon][amnt]")
-		else
-			filling = icon(DRINK_ICON_FILE, "[base_icon][amnt]")
-		filling.Blend(mix_color_from_reagents(reagents.reagent_list), ICON_MULTIPLY)
+			overlays += image(DRINK_ICON_FILE, src, k)
+		
+		var/image/filling = image(DRINK_ICON_FILE, src, "[base_icon][amnt]")
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
 		
 		for(var/k in over_liquid)
-			var/image/I = image(DRINK_ICON_FILE, src, k)
-			overlays += I
+			overlays += image(DRINK_ICON_FILE, src, k)
 	else
 		name = initial(name)
 		desc = initial(desc)
