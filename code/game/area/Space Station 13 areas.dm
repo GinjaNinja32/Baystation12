@@ -1049,7 +1049,8 @@ var/list/ghostteleportlocs = list()
 /area/holodeck/source_space
 	name = "\improper Holodeck - Space"
 
-
+/area/holodeck/source_chess
+	name = "\improper Holodeck - Chess"
 
 
 

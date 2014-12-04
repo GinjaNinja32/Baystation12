@@ -1,5 +1,6 @@
 var/global/list/holodeck_programs = list(
 	"emptycourt" = /area/holodeck/source_emptycourt,		\
+	"chessboard" = /area/holodeck/source_chess,		\
 	"boxingcourt" =	/area/holodeck/source_boxingcourt,	\
 	"basketball" =	/area/holodeck/source_basketball,	\
 	"thunderdomecourt" =	/area/holodeck/source_thunderdomecourt,	\
@@ -36,7 +37,8 @@ var/global/list/holodeck_programs = list(
 	"Picnic Area" = "picnicarea",	\
 	"Snow Field" = "snowfield",	\
 	"Theatre" = "theatre",	\
-	"Meeting Hall" = "meetinghall"	\
+	"Meeting Hall" = "meetinghall",	\
+	"Chessboard" = "chessboard" \
 	)
 	var/list/restricted_programs = list("Atmospheric Burn Simulation" = "burntest", "ildlife Simulation" = "wildlifecarp")
 
