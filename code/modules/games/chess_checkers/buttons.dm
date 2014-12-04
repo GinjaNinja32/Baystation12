@@ -21,8 +21,15 @@
 /obj/structure/game/button/clearboard
 	name = "clear board button"
 	activate()
+		var/obj/whiteDead = locate(/obj/structure/game/dzone/white) in src.loc.loc
+		var/obj/blackDead = locate(/obj/structure/game/dzone/black) in src.loc.loc
 		for(var/obj/structure/game/piece/P in src.loc.loc)
-			P.moveToDead()
+			if(P.iswhite)
+				P.loc = whiteDead.loc
+			else
+				P.loc = blackDead.loc
+			P.pixel_x = 0
+			P.pixel_y = 0
 
 /obj/structure/game/button/spawner
 	var/piecetype = null
