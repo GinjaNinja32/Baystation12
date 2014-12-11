@@ -21,15 +21,15 @@
 /obj/item/weapon/reagent_containers/drinking/attack_hand(mob/user as mob)
 	if(src != user.get_inactive_hand())
 		return ..()
-	
+
 	if(!leftitem && !rightitem)
 		user << "There's nothing on the glass to remove!"
 		return
-	
+
 	var/choice = input(user, "What would you like to remove from the glass?") as null|anything in list(leftitem, rightitem)
 	if(!choice)
 		return
-	
+
 	if(choice == leftitem)
 		if(user.put_in_active_hand(leftitem))
 			user << "\blue You remove \the [leftitem] from \the [src]."
@@ -40,7 +40,7 @@
 			rightitem = null
 	else
 		user << "Something went wrong, please try again."
-	
+
 	update_icon()
 
 /obj/item/weapon/glass_extra
@@ -50,7 +50,7 @@
 	var/glass_desc
 	var/glass_color
 	w_class = 1
-	icon = 'icons/procedural_drink.dmi'
+	icon = DRINK_ICON_FILE
 
 /obj/item/weapon/glass_extra/stick
 	name = "stick"
@@ -78,7 +78,7 @@
 		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 		del(src)
 	else if( istype(M, /mob/living/carbon/human) )
-	
+
 		var/mob/living/carbon/human/H = M
 		if(H.species.flags & IS_SYNTHETIC)
 			H << "\red They have a monitor for a head, where do you think you're going to put that?"
@@ -115,3 +115,5 @@
 	glass_color = "#FF7F00"
 	glass_desc = "There is an orange slice on the rim."
 	icon_state = "orangeslice"
+
+#undef DRINK_ICON_FILE

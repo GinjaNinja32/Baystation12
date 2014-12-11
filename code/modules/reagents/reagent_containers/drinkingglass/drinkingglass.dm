@@ -8,27 +8,28 @@
 	var/base_icon = "square" // Base icon name
 	volume = 30
 	var/gulp_size = 5
-	
+
 	var/list/filling_states
-	
+	var/list/fill_descriptions
+
 	var/obj/item/weapon/glass_extra/leftitem = null
 	var/obj/item/weapon/glass_extra/rightitem = null
-	
+
 	var/list/center_of_mass = list("x"=16, "y"=10)
-	
+
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,15,30)
 	flags = FPRINT | TABLEPASS | OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/drinking/examine(mob/M as mob)
 	..()
-	
+
 	if(leftitem)
 		M << leftitem.glass_desc
-	
+
 	if(rightitem)
 		M << rightitem.glass_desc
-	
+
 	if(has_ice())
 		M << "There is some ice floating in the drink."
 
@@ -50,7 +51,7 @@
 		if(!((R.id == "ice") || ("ice" in R.glass_special))) // if it's not a cup of ice, and it's not already supposed to have ice in, see if the bartender's put ice in it
 			if(reagents.has_reagent("ice", reagents.total_volume / 10)) // 10% ice by volume
 				return 1
-	
+
 	return 0
 
 /obj/item/weapon/reagent_containers/drinking/proc/has_fizz()
@@ -67,7 +68,7 @@
 
 /obj/item/weapon/reagent_containers/drinking/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity) return
-	
+
 	// Placing on tables
 	if(params && istype(A, /obj/structure/table) && center_of_mass.len)
 		//Places the item on a grid
@@ -90,7 +91,7 @@
 		var/obj/target = A
 		// Reagent transfers
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-		
+
 			if(!target.reagents.total_volume)
 				user << "\red [target] is empty."
 				return
@@ -126,63 +127,66 @@
 /obj/item/weapon/reagent_containers/drinking/proc/can_add_extra(obj/item/weapon/glass_extra/GE, side)
 	if("[base_icon]_[GE.glass_addition][side]" in icon_states(DRINK_ICON_FILE))
 		return 1
-	
+
 	return 0
 
 /obj/item/weapon/reagent_containers/drinking/update_icon()
-	overlays.Cut()
+	underlays.Cut()
 
 	if (reagents.reagent_list.len > 0)
 		var/datum/reagent/R = reagents.get_master_reagent()
 		name = "[base_name] of [R.glass_name ? R.glass_name : "something"]"
 		desc = R.glass_desc ? R.glass_desc : initial(desc)
-		
+
 		var/list/under_liquid = list()
 		var/list/over_liquid = list()
-		
+
 		var/amnt = 100
 		var/percent = round((reagents.total_volume / volume) * 100)
 		for(var/k in filling_states)
 			if(percent <= k)
 				amnt = k
 				break
-		
+
 		if(has_ice())
 			over_liquid |= "[base_icon][amnt]_ice"
-		
+
 		if(has_fizz())
 			over_liquid |= "[base_icon][amnt]_fizz"
-		
+
 		for(var/S in R.glass_special)
 			if("[base_icon]_[S]" in icon_states(DRINK_ICON_FILE))
 				under_liquid |= "[base_icon]_[S]"
 			else if("[base_icon][amnt]_[S]" in icon_states(DRINK_ICON_FILE))
 				over_liquid |= "[base_icon][amnt]_[S]"
-		
+
 		for(var/k in under_liquid)
-			overlays += image(DRINK_ICON_FILE, src, k)
-		
-		var/image/filling = image(DRINK_ICON_FILE, src, "[base_icon][amnt]")
+			underlays += image(DRINK_ICON_FILE, src, k)
+
+		var/state = "[base_icon][amnt]"
+		if(R.glass_iconmod && ("[state]_[R.glass_iconmod]" in icon_states(DRINK_ICON_FILE)))
+			state = "[state]_[R.glass_iconmod]"
+		var/image/filling = image(DRINK_ICON_FILE, src, state)
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
-		
+		underlays += filling
+
 		for(var/k in over_liquid)
-			overlays += image(DRINK_ICON_FILE, src, k)
+			underlays += image(DRINK_ICON_FILE, src, k)
 	else
 		name = initial(name)
 		desc = initial(desc)
-	
+
 	if(leftitem)
 		var/image/I = image(DRINK_ICON_FILE, src, "[base_icon]_[leftitem.glass_addition]left")
 		if(leftitem.glass_color)
 			I.color = leftitem.glass_color
-		overlays += I
-		
+		underlays += I
+
 	if(rightitem)
 		var/image/I = image(DRINK_ICON_FILE, src, "[base_icon]_[rightitem.glass_addition]right")
 		if(rightitem.glass_color)
 			I.color = rightitem.glass_color
-		overlays += I
+		underlays += I
 
 /obj/item/weapon/reagent_containers/drinking/attack(mob/M as mob, mob/user as mob, def_zone)
 	var/datum/reagents/R = src.reagents
@@ -231,5 +235,3 @@
 		return 1
 
 	return 0
-
-#undef DRINK_ICON_FILE

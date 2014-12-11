@@ -7,7 +7,7 @@
 // icon overlay definitions to avoid typo errors going undetected
 #define FIZZ "fizz"
 #define ICE "ice"
-#define NOISY_ICON "noisy"
+#define NOISY_ICON "noise"
 
 //The reaction procs must ALWAYS set src = null, this detaches the proc from the object (the reagent)
 //so that it can continue working when the reagent is deleted while the proc is still active.
@@ -649,7 +649,7 @@ datum
 			glass_icon_state = "iceglass"
 			glass_name = "sugar"
 			glass_desc = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
-			glass_iconmod = "noisy"
+			glass_iconmod = NOISY_ICON
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += 1*REM
@@ -2614,7 +2614,7 @@ datum
 			glass_name = "grape soda"
 			glass_desc = "Looks like a delicious drink!"
 			glass_special = list(FIZZ)
-			
+
 		drink/poisonberryjuice
 			name = "Poison Berry Juice"
 			id = "poisonberryjuice"
@@ -3140,7 +3140,7 @@ datum
 			glass_name = "Neurotoxin"
 			glass_desc = "A drink that is guaranteed to knock you silly."
 			glass_center_of_mass = list("x"=16, "y"=8)
-			glass_iconmod = "noisy"
+			glass_iconmod = NOISY_ICON
 			glass_special = list("neuroright")
 
 			on_mob_life(var/mob/living/carbon/M as mob)
