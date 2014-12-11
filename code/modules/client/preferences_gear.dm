@@ -3,6 +3,7 @@ var/global/list/gear_datums = list()
 /hook/startup/proc/populate_gear_list()
 	var/list/sort_categories = list(
 		"[slot_head]"		= list(),
+		"ears"				= list(),
 		"[slot_glasses]" 	= list(),
 		"[slot_wear_mask]"	= list(),
 		"[slot_w_uniform]"	= list(),
@@ -314,6 +315,12 @@ var/global/list/gear_datums = list()
 /datum/gear/sundress
 	display_name = "sundress"
 	path = /obj/item/clothing/under/sundress
+	slot = slot_w_uniform
+	cost = 3
+
+/datum/gear/sundress_white
+	display_name = "sundress, white"
+	path = /obj/item/clothing/under/sundress_white
 	slot = slot_w_uniform
 	cost = 3
 
@@ -740,6 +747,12 @@ var/global/list/gear_datums = list()
 	sort_category = "utility"
 	cost = 1
 
+/datum/gear/paicard
+	display_name = "personal AI device"
+	path = /obj/item/device/paicard
+	sort_category = "utility"
+	cost = 2
+
 // The rest of the trash.
 
 /datum/gear/ashtray
@@ -801,3 +814,33 @@ var/global/list/gear_datums = list()
 	path = /obj/item/weapon/haircomb
 	sort_category = "misc"
 	cost = 2
+
+// Stuff worn on the ears. Items here go in the "ears" sort_category but they must not use
+// the slot_r_ear or slot_l_ear as the slot, or else players will spawn with no headset.
+/datum/gear/skrell_chain
+	display_name = "skrell headtail-wear, female, chain"
+	path = /obj/item/clothing/ears/skrell/chain
+	cost = 2
+	sort_category = "ears"
+	whitelisted = "Skrell"
+
+/datum/gear/skrell_plate
+	display_name = "skrell headtail-wear, male, bands"
+	path = /obj/item/clothing/ears/skrell/band
+	cost = 2
+	sort_category = "ears"
+	whitelisted = "Skrell"
+
+/datum/gear/skrell_cloth_male
+	display_name = "skrell headtail-wear, male, cloth"
+	path = /obj/item/clothing/ears/skrell/cloth_male
+	cost = 2
+	sort_category = "ears"
+	whitelisted = "Skrell"
+
+/datum/gear/skrell_cloth_female
+	display_name = "skrell headtail-wear, female, cloth"
+	path = /obj/item/clothing/ears/skrell/cloth_female
+	cost = 2
+	sort_category = "ears"
+	whitelisted = "Skrell"

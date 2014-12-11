@@ -116,6 +116,23 @@
 	if(terminal)
 		terminal.connect_to_network()
 
+/obj/machinery/power/apc/drain_power(var/drain_check, var/surge)
+
+	if(drain_check)
+		return 1
+
+	if(!cell)
+		return 0
+
+	if(surge && !emagged)
+		flick("apc-spark", src)
+		emagged = 1
+		locked = 0
+		update_icon()
+		return 0
+
+	return cell.drain_power(drain_check)
+
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	..()
 	wires = new(src)
@@ -126,9 +143,9 @@
 	// offset 24 pixels in direction of dir
 	// this allows the APC to be embedded in a wall, yet still inside an area
 	if (building)
-		dir = ndir
+		set_dir(ndir)
 	src.tdir = dir		// to fix Vars bug
-	dir = SOUTH
+	set_dir(SOUTH)
 
 	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
 	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
@@ -167,7 +184,7 @@
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.dir = tdir
+	terminal.set_dir(tdir)
 	terminal.master = src
 
 /obj/machinery/power/apc/proc/init()
@@ -1122,7 +1139,7 @@
 		else if(longtermpower > -10)
 			longtermpower -= 2
 
-		if(cell.charge >= 1250 || longtermpower > 0)              // Put most likely at the top so we don't check it last, effeciency 101
+		if((cell.percent() > 30) || longtermpower > 0)              // Put most likely at the top so we don't check it last, effeciency 101
 			if(autoflag != 3)
 				equipment = autoset(equipment, 1)
 				lighting = autoset(lighting, 1)
@@ -1131,21 +1148,21 @@
 				area.poweralert(1, src)
 				if(cell.charge >= 4000)
 					area.poweralert(1, src)
-		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
+		else if((cell.percent() <= 30) && (cell.percent() > 15) && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				area.poweralert(0, src)
 				autoflag = 2
-		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
+		else if(cell.percent() <= 15)        // <15%, turn off lighting & equipment
 			if((autoflag > 1 && longtermpower < 0) || (autoflag > 1 && longtermpower >= 0))
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
 				area.poweralert(0, src)
 				autoflag = 1
-		else if(cell.charge <= 0)                                   // zero charge, turn all off
+		else                                   // zero charge, turn all off
 			if(autoflag != 0)
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)

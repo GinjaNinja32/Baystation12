@@ -15,6 +15,8 @@
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole"
 	circuit = "/obj/item/weapon/circuitboard/cryopodcontrol"
+	density = 0
+	interact_offline = 1
 	var/mode = null
 
 	//Used for logging people entering cryosleep and important items they are carrying.

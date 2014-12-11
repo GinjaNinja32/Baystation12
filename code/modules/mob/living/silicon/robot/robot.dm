@@ -30,6 +30,9 @@ var/list/robot_verbs_default = list(
 	var/obj/screen/inv2 = null
 	var/obj/screen/inv3 = null
 
+	var/shown_robot_modules = 0 //Used to determine whether they have the module menu shown or not
+	var/obj/screen/robot_modules_background
+
 //3 Modules can be activated at any one time.
 	var/obj/item/weapon/robot_module/module = null
 	var/module_active = null
@@ -75,7 +78,22 @@ var/list/robot_verbs_default = list(
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/braintype = "Cyborg"
 
-/mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0)
+/mob/living/silicon/robot/syndicate
+	lawupdate = 0
+	scrambledcodes = 1
+	icon_state = "securityrobot"
+	modtype = "Security"
+	lawchannel = "State"
+
+/mob/living/silicon/robot/syndicate/New()
+	if(!cell)
+		cell = new /obj/item/weapon/cell(src)
+		cell.maxcharge = 25000
+		cell.charge = 25000
+
+	..()
+
+/mob/living/silicon/robot/New(loc,var/unfinished = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -84,27 +102,18 @@ var/list/robot_verbs_default = list(
 
 	wires = new(src)
 
+	robot_modules_background = new()
+	robot_modules_background.icon_state = "block"
+	robot_modules_background.layer = 19 //Objects that appear on screen are on layer 20, UI should be just below it.
 	ident = rand(1, 999)
 	updatename("Default")
 	updateicon()
 
-	if(syndie)
-		if(!cell)
-			cell = new /obj/item/weapon/cell(src)
-
-		laws = new /datum/ai_laws/antimov()
-		lawupdate = 0
-		scrambledcodes = 1
-		cell.maxcharge = 25000
-		cell.charge = 25000
-		module = new /obj/item/weapon/robot_module/syndicate(src)
-		hands.icon_state = "standard"
-		icon_state = "secborg"
-		modtype = "Security"
-	init()
-
 	radio = new /obj/item/device/radio/borg(src)
 	common_radio = radio
+
+	init()
+
 	if(!scrambledcodes && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
@@ -158,6 +167,36 @@ var/list/robot_verbs_default = list(
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
+/mob/living/silicon/robot/syndicate/init()
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+
+	laws = new /datum/ai_laws/syndicate_override
+	module = new /obj/item/weapon/robot_module/syndicate(src)
+
+	radio.keyslot = new /obj/item/device/encryptionkey/syndicate(radio)
+	radio.recalculateChannels()
+
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
+
+/mob/living/silicon/robot/drain_power(var/drain_check)
+
+	if(drain_check)
+		return 1
+
+	if(!cell || !cell.charge)
+		return 0
+
+	if(cell.charge)
+		src << "<span class='danger'>Warning: Unauthorized access through power channel 12 detected.</span>"
+		var/drained_power = rand(200,400)
+		if(cell.charge < drained_power)
+			drained_power = cell.charge
+			cell.use(drained_power)
+			return drained_power
+
+	return 0
+
 // setup the PDA and its name
 /mob/living/silicon/robot/proc/setup_PDA()
 	if (!rbPDA)
@@ -177,7 +216,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Construction", "Surgeon", "Crisis", "Miner", "Janitor", "Service", "Clerical", "Security")
+	var/list/modules = list()
+	modules.Add(robot_module_types)
 	if((crisis && security_level == SEC_LEVEL_RED) || crisis_override) //Leaving this in until it's balanced appropriately.
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
@@ -224,7 +264,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
-			module_sprites["Drone"] = "drone-medical"
+			module_sprites["Drone"] = "drone-miner"
 
 		if("Crisis")
 			module = new /obj/item/weapon/robot_module/crisis(src)
@@ -235,6 +275,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
+			module_sprites["Drone" ] = "drone-medical"
 
 		if("Surgeon")
 			module = new /obj/item/weapon/robot_module/surgeon(src)
@@ -246,7 +287,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
-			module_sprites["Drone"] = "drone-medical"
+			module_sprites["Drone"] = "drone-surgery"
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
@@ -314,13 +355,14 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/updatename(var/prefix as text)
 	if(prefix)
 		modtype = prefix
-	if(mmi)
-		if(istype(mmi, /obj/item/device/mmi/posibrain))
-			braintype = "Android"
-		else
-			braintype = "Cyborg"
-	else
+
+	if(istype(mmi, /obj/item/device/mmi/digital/posibrain))
+		braintype = "Android"
+	else if(istype(mmi, /obj/item/device/mmi/digital/robot))
 		braintype = "Robot"
+	else
+		braintype = "Cyborg"
+
 
 	var/changed_name = ""
 	if(custom_name)
@@ -357,6 +399,14 @@ var/list/robot_verbs_default = list(
 				icon = 'icons/mob/custom-synthetic.dmi'
 				if(icon_state == "robot")
 					icon_state = "[src.ckey]-Standard"
+
+	//Flavour text.
+	if(client)
+		var/module_flavour = client.prefs.flavour_texts_robot[modtype]
+		if(module_flavour)
+			flavor_text = module_flavour
+		else
+			flavor_text = client.prefs.flavour_texts_robot["Default"]
 
 /mob/living/silicon/robot/verb/Namepick()
 	set category = "Robot Commands"
@@ -465,13 +515,6 @@ var/list/robot_verbs_default = list(
 		C.toggled = 1
 		src << "\red You enable [C.name]."
 
-/mob/living/silicon/robot/blob_act()
-	if (stat != 2)
-		adjustBruteLoss(60)
-		updatehealth()
-		return 1
-	return 0
-
 // this function shows information about the malf_ai gameplay type in the status screen
 /mob/living/silicon/robot/show_malf_ai()
 	..()
@@ -525,29 +568,6 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/restrained()
 	return 0
 
-
-/mob/living/silicon/robot/ex_act(severity)
-	if(!blinded)
-		flick("flash", flash)
-
-	switch(severity)
-		if(1.0)
-			if (stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
-				gib()
-				return
-		if(2.0)
-			if (stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
-		if(3.0)
-			if (stat != 2)
-				adjustBruteLoss(30)
-
-	updatehealth()
-
-
 /mob/living/silicon/robot/meteorhit(obj/O as obj)
 	for(var/mob/M in viewers(src, null))
 		M.show_message(text("\red [src] has been hit by [O]"), 1)
@@ -559,13 +579,10 @@ var/list/robot_verbs_default = list(
 		updatehealth()
 	return
 
-
 /mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	updatehealth()
 	if(prob(75) && Proj.damage > 0) spark_system.start()
 	return 2
-
 
 /mob/living/silicon/robot/Bump(atom/movable/AM as mob|obj, yes)
 	spawn( 0 )
@@ -927,7 +944,7 @@ var/list/robot_verbs_default = list(
 			return 1
 	return 0
 
-/mob/living/silicon/robot/proc/updateicon()
+/mob/living/silicon/robot/updateicon()
 
 	overlays.Cut()
 	if(stat == 0)
@@ -1258,13 +1275,23 @@ var/list/robot_verbs_default = list(
 		return 1
 	return 0
 
+/mob/living/silicon/robot/syndicate/canUseTopic(atom/movable/M)
+	if(stat || lockcharge || stunned || weakened)
+		return
+	if(z in config.admin_levels)
+		return 1
+	if(istype(M, /obj/machinery))
+		var/obj/machinery/Machine = M
+		return Machine.emagged
+	return 1
+
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(1) //New Cyborg
-			connected_ai << "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>"
+		if(1) //New Robot
+			connected_ai << "<br><br><span class='notice'>NOTICE - New [lowertext(braintype)] connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>"
 		if(2) //New Module
-			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [module.name] module.</span><br>"
+			connected_ai << "<br><br><span class='notice'>NOTICE - [braintype] module change detected: [name] has loaded the [module.name].</span><br>"
 		if(3) //New Name
-			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
+			connected_ai << "<br><br><span class='notice'>NOTICE - [braintype] reclassification detected: [oldname] is now designated as [newname].</span><br>"

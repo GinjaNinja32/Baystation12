@@ -58,7 +58,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/list/update_every_five = list(3, 41, 433, 46, 47, 48, 49)			     // These we update every 5 ticks
 
 	var/obj/item/weapon/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
-	var/ownjob = null //related to above
+	var/ownjob = null //related to above - this is assignment (potentially alt title)
+	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/device/paicard/pai = null	// A slot for a personal AI device
 
@@ -223,9 +224,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	detonate = 0
 
 
-/obj/item/device/pda/ai/proc/set_name_and_job(newname as text, newjob as text)
+/obj/item/device/pda/ai/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
 	ownjob = newjob
+	if(newrank)
+		ownrank = newrank
+	else
+		ownrank = ownjob
 	name = newname + " (" + ownjob + ")"
 
 
@@ -602,6 +607,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			id_check(U, 1)
 		if("UpdateInfo")
 			ownjob = id.assignment
+			ownrank = id.rank
 			name = "PDA-[owner] ([ownjob])"
 		if("Eject")//Ejects the cart, only done from hub.
 			if (!isnull(cartridge))
@@ -1042,10 +1048,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	// Do nothing
 
 /obj/item/device/pda/proc/new_message_from_pda(var/obj/item/device/pda/sending_device, var/message)
-	new_message(sending_device.name, sending_device.owner, sending_device.ownjob, message)
+	new_message(sending_device, sending_device.owner, sending_device.ownjob, message)
 
 /obj/item/device/pda/proc/new_message(var/sending_unit, var/sender, var/sender_job, var/message)
-	var/reception_message = "\icon[src] <b>Message from [sender] ([sender_job]), </b>\"[message]\" (<a href='byond://?src=\ref[src];choice=Message;notap=[istype(loc, /mob/living/silicon)];skiprefresh=1;target=\ref[src]'>Reply</a>)"
+	var/reception_message = "\icon[src] <b>Message from [sender] ([sender_job]), </b>\"[message]\" (<a href='byond://?src=\ref[src];choice=Message;notap=[istype(loc, /mob/living/silicon)];skiprefresh=1;target=\ref[sending_unit]'>Reply</a>)"
 	new_info(news_silent, newstone, reception_message)
 
 	log_pda("[usr] (PDA: [sending_unit]) sent \"[message]\" to [name]")
@@ -1133,6 +1139,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(!owner)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
+			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
 			user << "<span class='notice'>Card scanned.</span>"
 		else

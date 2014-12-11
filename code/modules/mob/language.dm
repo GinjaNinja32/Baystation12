@@ -8,29 +8,32 @@
 	var/speech_verb = "says"         // 'says', 'hisses', 'farts'.
 	var/ask_verb = "asks"            // Used when sentence ends in a ?
 	var/exclaim_verb = "exclaims"    // Used when sentence ends in a !
+	var/whisper_verb                 // Optional. When not specified speech_verb + quietly/softly is used instead.
 	var/signlang_verb = list()       // list of emotes that might be displayed if this language has NONVERBAL or SIGNLANG flags
 	var/colour = "body"         // CSS style to use for strings in this language.
 	var/key = "x"                    // Character used to speak in language eg. :o for Unathi.
 	var/flags = 0                    // Various language flags.
 	var/native                       // If set, non-native speakers will have trouble speaking.
 
-/datum/language/proc/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
+/datum/language/proc/format_message(message, verb)
+	return "[verb], <span class='message'><span class='[colour]'>\"[capitalize(message)]\"</span></span>"
 
+/datum/language/proc/format_message_radio(message, verb)
+	return "[verb], <span class='[colour]'>\"[capitalize(message)]\"</span>"
+
+/datum/language/proc/get_talkinto_msg_range(message)
+	// if you yell, you'll be heard from two tiles over instead of one
+	return (copytext(message, length(message)) == "!") ? 2 : 1
+
+/datum/language/proc/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
 	log_say("[key_name(speaker)] : ([name]) [message]")
 
+	if(!speaker_mask) speaker_mask = speaker.name
+	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
+
 	for(var/mob/player in player_list)
-
-		var/understood = 0
-
-		if(istype(player,/mob/dead))
-			understood = 1
-		else if((src in player.languages) && check_special_condition(player))
-			understood = 1
-
-		if(understood)
-			if(!speaker_mask) speaker_mask = speaker.name
-			var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> <span class='message'>[speech_verb], \"<span class='[colour]'>[message]</span><span class='message'>\"</span></span></i>"
-			player << "[msg]"
+		if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player)))
+			player << msg
 
 /datum/language/proc/check_special_condition(var/mob/other)
 	return 1
@@ -42,6 +45,23 @@
 		if("?")
 			return ask_verb
 	return speech_verb
+
+// Noise "language", for audible emotes.
+/datum/language/noise
+	name = "Noise"
+	desc = "Noises"
+	key = ""
+	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG
+
+/datum/language/noise/format_message(message, verb)
+	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+
+/datum/language/noise/format_message_radio(message, verb)
+	return "<span class='[colour]'>[message]</span>"
+
+/datum/language/noise/get_talkinto_msg_range(message)
+	// if you make a loud noise (screams etc), you'll be heard from 4 tiles over instead of two
+	return (copytext(message, length(message)) == "!") ? 4 : 2
 
 /datum/language/unathi
 	name = "Sinta'unathi"
@@ -80,7 +100,7 @@
 	ask_verb = "creels"
 	exclaim_verb = "SHRIEKS"
 	colour = "vox"
-	key = "v"
+	key = "5"
 	flags = RESTRICTED
 
 /datum/language/diona
@@ -97,9 +117,11 @@
 	name = "Galactic Common"
 	desc = "The common galactic tongue."
 	speech_verb = "says"
+	whisper_verb = "whispers"
 	key = "0"
 	flags = RESTRICTED
 
+//TODO flag certain languages to use the mob-type specific say_quote and then get rid of these.
 /datum/language/common/get_spoken_verb(var/msg_end)
 	switch(msg_end)
 		if("!")
@@ -111,9 +133,19 @@
 /datum/language/human
 	name = "Sol Common"
 	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
+	speech_verb = "says"
+	whisper_verb = "whispers"
 	colour = "rough"
 	key = "1"
 	flags = RESTRICTED
+
+/datum/language/human/get_spoken_verb(var/msg_end)
+	switch(msg_end)
+		if("!")
+			return pick("exclaims","shouts","yells") //TODO: make the basic proc handle lists of verbs.
+		if("?")
+			return ask_verb
+	return speech_verb
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
@@ -273,15 +305,14 @@
 	return 1
 
 /mob/proc/remove_language(var/rem_language)
-
-	languages.Remove(all_languages[rem_language])
-
-	return 0
+	var/datum/language/L = all_languages[rem_language]
+	. = (L in languages)
+	languages.Remove(L)
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak(datum/language/speaking)
 
-	return (universal_speak || speaking in src.languages)
+	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in src.languages)
 
 //TBD
 /mob/verb/check_languages()
@@ -292,7 +323,8 @@
 	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
 
 	for(var/datum/language/L in languages)
-		dat += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br/><br/>"
+		if(!(L.flags & NONGLOBAL))
+			dat += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br/><br/>"
 
 	src << browse(dat, "window=checklanguage")
 	return

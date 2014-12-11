@@ -57,7 +57,7 @@
 		for(var/mob/N in viewers(src, null))
 			if(N.client)
 				N.show_message(text("\red <B>[M] bursts out of [src]!</B>"), 2)
-	. = ..()
+	. = ..(null,1)
 
 /mob/living/carbon/attack_hand(mob/M as mob)
 	if(!istype(M, /mob/living/carbon)) return
@@ -130,9 +130,9 @@
 			hud_used.l_hand_hud_object.icon_state = "hand_inactive"
 			hud_used.r_hand_hud_object.icon_state = "hand_active"
 	/*if (!( src.hand ))
-		src.hands.dir = NORTH
+		src.hands.set_dir(NORTH)
 	else
-		src.hands.dir = SOUTH*/
+		src.hands.set_dir(SOUTH)*/
 	return
 
 /mob/living/carbon/proc/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.

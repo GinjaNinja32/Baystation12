@@ -202,6 +202,15 @@ datum/design/air_management
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/air_management
 
+datum/design/rcon_console
+	name = "Circuit Design (RCON Console)"
+	desc = "Allows for the construction of circuit boards used to build an RCON Remote Control Console."
+	id = "rcon_console"
+	req_tech = list("programming" = 4, "engineering" = 3, "powerstorage" = 5)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/rcon_console
+
 /* Uncomment if someone makes these buildable
 datum/design/general_alert
 	name = "Circuit Design (General Alert Console)"
@@ -604,7 +613,7 @@ datum/design/posibrain
 
 	build_type = PROTOLATHE
 	materials = list("$metal" = 2000, "$glass" = 1000, "$silver" = 1000, "$gold" = 500, "$phoron" = 500, "$diamond" = 100)
-	build_path = /obj/item/device/mmi/posibrain
+	build_path = /obj/item/device/mmi/digital/posibrain
 
 ///////////////////////////////////
 //////////Mecha Module Disks///////
@@ -1273,6 +1282,15 @@ datum/design/gas_cooler
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/unary_atmos/cooler
 
+datum/design/secure_airlock
+	name = "Secure Airlock Electronics"
+	desc =  "Tamper-resistant airlock electronics"
+	id = "securedoor"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20)
+	build_path = /obj/item/weapon/airlock_electronics/secure
+
 /////////////////////////////////////////
 ////////////Power Stuff//////////////////
 /////////////////////////////////////////
@@ -1420,7 +1438,7 @@ datum/design/implant_loyal
 	req_tech = list("materials" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7000, "$glass" = 7000)
-	build_path = /obj/item/weapon/implant/loyalty"
+	build_path = /obj/item/weapon/implantcase/loyalty"
 */
 
 datum/design/implant_chem
@@ -1430,7 +1448,7 @@ datum/design/implant_chem
 	req_tech = list("materials" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/implant/chem
+	build_path = /obj/item/weapon/implantcase/chem
 
 datum/design/implant_free
 	name = "freedom implant"
@@ -1439,7 +1457,7 @@ datum/design/implant_free
 	req_tech = list("syndicate" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/implant/freedom
+	build_path = /obj/item/weapon/implantcase/freedom
 
 datum/design/chameleon
 	name = "Chameleon Kit"
@@ -1812,7 +1830,7 @@ datum/design/borg_syndicate_module
 /////////////PDA and Radio stuff/////////
 /////////////////////////////////////////
 datum/design/binaryencrypt
-	name = "Binary Encrpytion Key"
+	name = "binary encryption key"
 	desc = "An encyption key for a radio headset.  Contains cypherkeys."
 	id = "binaryencrypt"
 	req_tech = list("syndicate" = 2)

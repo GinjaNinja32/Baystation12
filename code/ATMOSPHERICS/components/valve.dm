@@ -123,9 +123,9 @@
 
 /obj/machinery/atmospherics/valve/proc/normalize_dir()
 	if(dir==3)
-		dir = 1
+		set_dir(1)
 	else if(dir==12)
-		dir = 4
+		set_dir(4)
 
 /obj/machinery/atmospherics/valve/attack_ai(mob/user as mob)
 	return
@@ -317,3 +317,7 @@
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
 		del(src)
+
+/obj/machinery/atmospherics/valve/examine(mob/user)
+	..()
+	user << "It is [open ? "open" : "closed"]."

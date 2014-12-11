@@ -151,7 +151,11 @@
 
 	var/list/area/escape_locations = list(/area/shuttle/escape/centcom, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
 
+	var/pltext = "<font size=2><b>Player list:</b></font>"
+
 	for(var/mob/M in player_list)
+		if(M.mind)
+			pltext += print_player_lite(M.mind)
 		if(M.client)
 			clients++
 			if(ishuman(M))
@@ -178,6 +182,15 @@
 
 			if(isobserver(M))
 				ghosts++
+
+	var/text = ""
+	if(surviving_total > 0)
+		text += "<br>There [surviving_total>1 ? "were <b>[surviving_total] survivors</b>" : "was <b>one survivor</b>"]</b>"
+		text += " (<b>[escaped_total>0 ? escaped_total : "none"] [emergency_shuttle.evac ? "escaped" : "transferred"]</b>) and <b>[ghosts] ghosts</b>.</b><br>"
+	else
+		text += "There were <b>no survivors</b> (<b>[ghosts] ghosts</b>).</b>"
+	text += "<br>" + pltext //print player list after the general info
+	world << text
 
 	if(clients > 0)
 		feedback_set("round_end_clients",clients)
@@ -513,9 +526,9 @@ proc/get_nt_opposed()
 		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 
-/datum/game_mode/proc/printplayer(var/datum/mind/ply)
+/datum/game_mode/proc/print_player_lite(var/datum/mind/ply)
 	var/role = ply.assigned_role == "MODE" ? "\improper[ply.special_role]" : "\improper[ply.assigned_role]"
-	var/text = "<br><b>[ply.name]</b>(<b>[ply.key]</b>) as \a <b>[role]</b> ("
+	var/text = "<br><b>[ply.name]</b> (<b>[ply.key]</b>) as \a <b>[role]</b> ("
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += "died"
@@ -527,6 +540,11 @@ proc/get_nt_opposed()
 		text += "body destroyed"
 	text += ")"
 
+	return text
+
+/datum/game_mode/proc/print_player_full(var/datum/mind/ply)
+	var/text = print_player_lite(ply)
+
 	var/TC_uses = 0
 	var/uplink_true = 0
 	var/purchases = ""
@@ -534,9 +552,15 @@ proc/get_nt_opposed()
 		if(H && H.uplink_owner && H.uplink_owner == ply)
 			TC_uses += H.used_TC
 			uplink_true = 1
-			for(var/log in H.purchase_log)
-				purchases += "<BIG>[log]</BIG>"
+			var/list/refined_log = new()
+			for(var/datum/uplink_item/UI in H.purchase_log)
+				var/obj/I = new UI.path
+				refined_log.Add("[H.purchase_log[UI]]x\icon[I][I.name]")
+				del(I)
+			purchases = english_list(refined_log, nothing_text = "")
 	if(uplink_true)
-		text += " (used [TC_uses] TC) [purchases]"
+		text += " (used [TC_uses] TC)"
+		if(purchases)
+			text += "<br>[purchases]"
 
 	return text

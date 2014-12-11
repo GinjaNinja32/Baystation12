@@ -533,18 +533,22 @@
 	var/suit_icon       // Sets suit icon_state and item_state.
 	var/helmet_color    // Sets item_color.
 	var/uses = 2        // Uses before the kit deletes itself.
+	var/new_light_overlay
 
-/obj/item/clothing/head/helmet/space/rig/attackby(var/obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/head/helmet/space/void/attackby(var/obj/item/O as obj, mob/user as mob)
 	..()
 
 	if(istype(O,/obj/item/device/kit/suit/fluff))
 
 		var/obj/item/device/kit/suit/fluff/kit = O
-		name = "[kit.new_name] hardsuit helmet"
+		name = "[kit.new_name] suit helmet"
 		desc = kit.new_helmet_desc
 		icon_state = kit.helmet_icon
 		item_state = kit.helmet_icon
 		item_color = kit.helmet_color
+
+		if(kit.new_light_overlay)
+			light_overlay = kit.new_light_overlay
 
 		user << "You set about modifying the helmet into [src]."
 		playsound(user.loc, 'sound/items/Screwdriver.ogg', 50, 1)
@@ -554,13 +558,13 @@
 			user.drop_item()
 			del(O)
 
-/obj/item/clothing/suit/space/rig/attackby(var/obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/suit/space/void/attackby(var/obj/item/O as obj, mob/user as mob)
 	..()
 
 	if(istype(O,/obj/item/device/kit/suit/fluff))
 
 		var/obj/item/device/kit/suit/fluff/kit = O
-		name = "[kit.new_name] hardsuit"
+		name = "[kit.new_name] voidsuit"
 		desc = kit.new_suit_desc
 		icon_state = kit.suit_icon
 		item_state = kit.suit_icon
@@ -608,6 +612,7 @@
 	helmet_icon = "rig0-hazardhardsuit"
 	suit_icon = "rig-hazardhardsuit"
 	helmet_color = "hazardhardsuit"
+	new_light_overlay = "helmet_light_dual"
 
 //////// Meat Hook - Korom Bhararaya - Matthew951 ////////////////////////
 
@@ -1004,16 +1009,6 @@
 	item_state = "jensensuit"
 	item_color = "harper_uniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
-
-//////////////////// Layla's Dress - Layla Davies-Halabi - sabirm ///////////////
-
-/obj/item/clothing/under/fluff/layla_davieshalabi
-	name = "White floral sundress"
-	desc = "A loose, white sundress decorated with purple lilies. It looks well looked-after."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "layladress"
-	item_state = "layladress"
-	item_color = "layladress"
 
 //////////////////// Corporate Cap - Robert Mason - Masterrbc ////////////////////
 
