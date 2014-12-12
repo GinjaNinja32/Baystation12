@@ -161,17 +161,17 @@
 				over_liquid |= "[base_icon][amnt]_[S]"
 
 		for(var/k in under_liquid)
-			underlays += image(DRINK_ICON_FILE, src, k)
+			underlays += image(DRINK_ICON_FILE, src, k, -3)
 
 		var/state = "[base_icon][amnt]"
 		if(R.glass_iconmod && ("[state]_[R.glass_iconmod]" in icon_states(DRINK_ICON_FILE)))
 			state = "[state]_[R.glass_iconmod]"
-		var/image/filling = image(DRINK_ICON_FILE, src, state)
+		var/image/filling = image(DRINK_ICON_FILE, src, state, -2)
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		underlays += filling
 
 		for(var/k in over_liquid)
-			underlays += image(DRINK_ICON_FILE, src, k)
+			underlays += image(DRINK_ICON_FILE, src, k, -1)
 	else
 		name = initial(name)
 		desc = initial(desc)
