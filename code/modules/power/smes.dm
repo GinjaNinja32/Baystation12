@@ -1,6 +1,7 @@
 // the SMES
 // stores power
 
+#define SMESRATE 0.05
 #define SMESMAXCHARGELEVEL 250000
 #define SMESMAXOUTPUT 250000
 
@@ -43,22 +44,15 @@
 	var/obj/machinery/power/terminal/terminal = null
 	var/should_be_mapped = 0 // If this is set to 0 it will send out warning on New()
 
-/obj/machinery/power/smes/drain_power(var/drain_check)
+/obj/machinery/power/smes/drain_power(var/drain_check, var/surge, var/amount = 0)
 
 	if(drain_check)
 		return 1
 
-	if(!charge)
-		return 0
+	var/smes_amt = min((amount * SMESRATE), charge)
+	charge -= smes_amt
+	return smes_amt / SMESRATE
 
-	if(charge)
-		var/drained_power = rand(200,400)
-		if(charge < drained_power)
-			drained_power = charge
-			charge -= drained_power
-			return drained_power
-
-	return 0
 
 /obj/machinery/power/smes/New()
 	..()
@@ -112,11 +106,7 @@
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))
 
-#define SMESRATE 0.05			// rate of internal charge to external power
-
-
 /obj/machinery/power/smes/process()
-
 	if(stat & BROKEN)	return
 
 	//store machine state to see if we need to update the icon overlays
@@ -146,7 +136,7 @@
 		add_avail(output_used)				// add output to powernet (smes side)
 
 		if(output_used < 0.0001)			// either from no charge or set to 0
-			outputting = 0
+			outputting(0)
 			investigate_log("lost power and turned <font color='red'>off</font>","singulo")
 	else if(output_attempt && charge > output_level && output_level > 0)
 		outputting = 1
@@ -328,19 +318,8 @@
 	return round(100.0*charge/capacity, 0.1)
 
 /obj/machinery/power/smes/Topic(href, href_list)
-	..()
-
-	if (usr.stat || usr.restrained() )
-		return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		if(!istype(usr, /mob/living/silicon/ai))
-			usr << "\red You don't have the dexterity to do this!"
-			return
-
-//world << "[href] ; [href_list[href]]"
-
-	if (!istype(src.loc, /turf) && !istype(usr, /mob/living/silicon/))
-		return 0 // Do not update ui
+	if(..())
+		return 1
 
 	if( href_list["cmode"] )
 		inputting(!inputting)
