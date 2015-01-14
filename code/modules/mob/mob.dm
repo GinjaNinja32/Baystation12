@@ -813,16 +813,17 @@ note dizziness decrements automatically in the mob's Life() proc.
 				stat(null,"MasterController-ERROR")
 
 	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
+		if(stat == 2 ? (listed_turf in view()) : TurfAdjacent(listed_turf))
+			if(statpanel(listed_turf.name))
+				stat(null, listed_turf)
+				for(var/atom/A in listed_turf)
+					if(A.invisibility > see_invisible)
+						continue
+					if(is_type_in_list(A, shouldnt_see))
+						continue
+					stat(null, A)
 		else
-			statpanel(listed_turf.name, null, listed_turf)
-			for(var/atom/A in listed_turf)
-				if(A.invisibility > see_invisible)
-					continue
-				if(is_type_in_list(A, shouldnt_see))
-					continue
-				statpanel(listed_turf.name, null, A)
+			listed_turf = null
 
 	if(spell_list && spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in spell_list)

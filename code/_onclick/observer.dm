@@ -34,6 +34,19 @@
 		return
 	if(world.time <= next_move) return
 	next_move = world.time + 8
+	var/list/modifiers = params2list(params)
+	if(modifiers["shift"])
+		examinate(A)
+		return
+	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+		var/turf/T = get_turf(A)
+		if(T)
+			if(listed_turf == T)
+				listed_turf = null
+			else
+				listed_turf = T
+				client.statpanel = T.name
+			return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
