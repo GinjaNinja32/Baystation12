@@ -1,5 +1,5 @@
 #ifndef T_BOARD
-#error T_BOARD macro is not defined but we need it! 
+#error T_BOARD macro is not defined but we need it!
 #endif
 
 /obj/item/weapon/circuitboard/unary_atmos
@@ -26,6 +26,18 @@
 /obj/item/weapon/circuitboard/unary_atmos/cooler
 	name = T_BOARD("gas cooling system")
 	build_path = "/obj/machinery/atmospherics/unary/freezer"
+	origin_tech = "magnets=2;engineering=2"
+	frame_desc = "Requires 2 Pieces of Cable, 1 Matter Bin, 1 Micro Manipulator, and 2 Capacitors."
+	req_components = list(
+							"/obj/item/stack/cable_coil" = 2,
+							"/obj/item/weapon/stock_parts/matter_bin" = 1,
+							"/obj/item/weapon/stock_parts/capacitor" = 2,
+							"/obj/item/weapon/stock_parts/manipulator" = 1)
+
+/obj/item/weapon/circuitboard/heat_pump
+	name = T_BOARD("heat pump")
+	build_path = "/obj/machinery/atmospherics/binary/heat_pump"
+	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2"
 	frame_desc = "Requires 2 Pieces of Cable, 1 Matter Bin, 1 Micro Manipulator, and 2 Capacitors."
 	req_components = list(

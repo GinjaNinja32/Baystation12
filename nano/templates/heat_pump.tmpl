@@ -1,0 +1,65 @@
+<div class="item">
+	<div class="itemLabel">
+		Status:
+	</div>
+	<div class="itemContent">
+		{{:helper.link('On', 'power', {'toggleStatus' : 1}, data.on ? 'selected' : null)}}{{:helper.link('Off', 'close', {'toggleStatus' : 1}, data.on ? null : 'selected')}}
+	</div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">
+		Power Level:
+	</div>
+	<div class="itemContent">
+		{{:helper.link('1', null, {'setPower' :  20}, (data.powerSetting ==  20)? 'selected' : null)}}
+		{{:helper.link('2', null, {'setPower' :  40}, (data.powerSetting ==  40)? 'selected' : null)}}
+		{{:helper.link('3', null, {'setPower' :  60}, (data.powerSetting ==  60)? 'selected' : null)}}
+		{{:helper.link('4', null, {'setPower' :  80}, (data.powerSetting ==  80)? 'selected' : null)}}
+		{{:helper.link('5', null, {'setPower' : 100}, (data.powerSetting == 100)? 'selected' : null)}}
+	</div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">Input:</div>
+	<div class="itemContent">
+		{{:data.input_pressure}} kPa @ {{:data.input_temperature}} K
+		{{:helper.displayBar(data.input_temperature, data.min_temperature, data.max_temperature)}}
+	</div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">Output:</div>
+	<div class="itemContent">
+		{{:data.output_pressure}} kPa @ {{:data.output_temperature}} K
+		{{:helper.displayBar(data.output_temperature, data.min_temperature, data.max_temperature)}}
+	</div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">
+		Target Selector:
+	</div>
+	<div class="itemContent">
+		{{:helper.link('Output', null, {'target' : 'out'}, data.target_output ? 'selected' : null)}}
+		{{:helper.link('Input',  null, {'target' : 'in'},   data.target_output ? null : 'selected')}}
+	</div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">
+		Target:
+	</div>
+	<div class="itemContent">
+		{{:helper.displayBar(data.target_temperature, data.min_temperature, data.max_temperature)}}
+		<div style="clear: both; padding-top: 4px;">
+			{{:helper.link('-', null, {'temp' : -100}, (data.target_temperature > data.min_temperature) ? null : 'disabled')}}
+			{{:helper.link('-', null, {'temp' : -10}, (data.target_temperature > data.min_temperature) ? null : 'disabled')}}
+			{{:helper.link('-', null, {'temp' : -1}, (data.target_temperature > data.min_temperature) ? null : 'disabled')}}
+			<div style="float: left; width: 80px; text-align: center;">&nbsp;{{:data.target_temperature}} K&nbsp;</div>
+			{{:helper.link('+', null, {'temp' : 1}, (data.target_temperature < data.max_temperature) ? null : 'disabled')}}
+			{{:helper.link('+', null, {'temp' : 10}, (data.target_temperature < data.max_temperature) ? null : 'disabled')}}
+			{{:helper.link('+', null, {'temp' : 100}, (data.target_temperature < data.max_temperature) ? null : 'disabled')}}
+		</div>
+	</div>
+</div>
