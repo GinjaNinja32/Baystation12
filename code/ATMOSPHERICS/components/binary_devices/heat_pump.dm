@@ -1,6 +1,4 @@
-var/global/HEAT_PUMP_MULT = 2.5
-/client/verb/SetPumpMultiplier(m as num)
-	HEAT_PUMP_MULT = m
+#define HEAT_PUMP_MULT 2.5
 
 /obj/machinery/atmospherics/binary/heat_pump
 	name = "heat pump"
@@ -23,8 +21,8 @@ var/global/HEAT_PUMP_MULT = 2.5
 /obj/machinery/atmospherics/binary/heat_pump/New()
 	..()
 
-	air1.volume = 200
-	air2.volume = 200
+	air1.volume = initial_volume
+	air2.volume = initial_volume
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/heat_pump(src)
@@ -65,7 +63,7 @@ var/global/HEAT_PUMP_MULT = 2.5
 	data["output_temperature"] = round(air2.temperature)
 	data["target_output"] = target_is_output
 	data["min_temperature"] = 0
-	data["max_temperature"] = round(T20C+500)
+	data["max_temperature"] = 1000
 	data["target_temperature"] = round(target_temperature)
 	data["powerSetting"] = power_setting
 
@@ -110,17 +108,17 @@ var/global/HEAT_PUMP_MULT = 2.5
 		update_icon()
 		return
 
-	if (network1 && network2)
+	if (network1 && network2 && air1.total_moles && air2.total_moles)
 		var/cop = HEAT_PUMP_MULT * air1.temperature/air2.temperature
 		if(target_is_output)
 			if(air2.temperature < target_temperature) // output temp < target
 				pumping = 1
 				var/heat_transfer = max(air2.get_thermal_energy_change(target_temperature), 0)
 				heat_transfer = min(heat_transfer, cop * power_rating)
+				var/used_power = heat_transfer / cop
 				var/removed = air1.add_thermal_energy(-heat_transfer)
-				var/added = air2.add_thermal_energy(-removed)
-				world << "\The [src] removed [-removed] W of energy from air1, and added [added] W of energy to air2"
-				use_power(power_rating)
+				air2.add_thermal_energy(-removed)
+				use_power(used_power)
 				network1.update = 1
 				network2.update = 1
 			else
@@ -130,10 +128,10 @@ var/global/HEAT_PUMP_MULT = 2.5
 				pumping = 1
 				var/heat_transfer = max(-air1.get_thermal_energy_change(target_temperature), 0)
 				heat_transfer = min(heat_transfer, cop * power_rating)
+				var/used_power = heat_transfer / cop
 				var/removed = air1.add_thermal_energy(-heat_transfer)
-				var/added = air2.add_thermal_energy(-removed)
-				world << "\The [src] removed [-removed] W of energy from air1, and added [added] W of energy to air2"
-				use_power(power_rating)
+				air2.add_thermal_energy(-removed)
+				use_power(used_power)
 				network1.update = 1
 				network2.update = 1
 			else
