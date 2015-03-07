@@ -138,6 +138,7 @@
 
 	if(damage >= 2)
 		usr << "<span class='warning'>The [interface_name] is damaged beyond use!</span>"
+		return 0
 
 	if(world.time < next_use)
 		usr << "<span class='warning'>You cannot use the [interface_name] again so soon.</span>"
@@ -147,9 +148,17 @@
 		usr << "<span class='warning'>The suit is not initialized.</span>"
 		return 0
 
+	if(usr.lying || usr.stat || usr.stunned || usr.paralysis || usr.weakened)
+		usr << "<span class='warning'>You cannot use the suit in this state.</span>"
+		return 0
+
+	if(holder.wearer && holder.wearer.lying)
+		usr << "<span class='warning'>The suit cannot function while the wearer is prone.</span>"
+		return 0
+
 	if(holder.security_check_enabled && !holder.check_suit_access(usr))
 		usr << "<span class='danger'>Access denied.</span>"
-		return
+		return 0
 
 	if(!holder.check_power_cost(usr, use_power_cost, 0, src, (istype(usr,/mob/living/silicon ? 1 : 0) ) ) )
 		return 0

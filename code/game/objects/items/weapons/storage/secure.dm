@@ -23,9 +23,9 @@
 	var/l_hacking = 0
 	var/emagged = 0
 	var/open = 0
-	w_class = 3.0
+	w_class = 3
 	max_w_class = 2
-	max_combined_w_class = 14
+	max_storage_space = 14
 
 	examine(mob/user)
 		if(..(user, 1))
@@ -145,7 +145,6 @@
 	icon_state = "secure"
 	item_state = "sec-case"
 	desc = "A large briefcase with a digital locking system."
-	flags = FPRINT | TABLEPASS
 	force = 8.0
 	throw_speed = 1
 	throw_range = 4
@@ -216,13 +215,12 @@
 	icon_opened = "safe0"
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
-	flags = FPRINT | TABLEPASS
 	force = 8.0
 	w_class = 8.0
 	max_w_class = 8
 	anchored = 1.0
 	density = 0
-	cant_hold = list("/obj/item/weapon/storage/secure/briefcase")
+	cant_hold = list(/obj/item/weapon/storage/secure/briefcase)
 
 	New()
 		..()

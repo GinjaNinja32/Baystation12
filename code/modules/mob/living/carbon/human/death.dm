@@ -28,8 +28,10 @@
 
 	if(stat == DEAD) return
 
-	hud_updateflag |= 1 << HEALTH_HUD
-	hud_updateflag |= 1 << STATUS_HUD
+	BITSET(hud_updateflag, HEALTH_HUD)
+	BITSET(hud_updateflag, STATUS_HUD)
+	BITSET(hud_updateflag, LIFE_HUD)
+
 	handle_hud_list()
 
 	//Handle species-specific deaths.

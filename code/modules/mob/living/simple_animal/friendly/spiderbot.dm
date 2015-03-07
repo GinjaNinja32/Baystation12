@@ -5,6 +5,7 @@
 	max_co2 = 0
 	minbodytemp = 0
 	maxbodytemp = 500
+	mob_size = 5
 
 	var/obj/item/device/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
@@ -193,7 +194,7 @@
 	radio = new /obj/item/device/radio/borg(src)
 	camera = new /obj/machinery/camera(src)
 	camera.c_tag = "Spiderbot-[real_name]"
-	camera.network = list("SS13")
+	camera.replace_networks(list("SS13"))
 
 	..()
 

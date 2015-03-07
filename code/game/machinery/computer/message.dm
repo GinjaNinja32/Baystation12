@@ -283,7 +283,7 @@
 
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(!istype(usr, /mob/living))
@@ -430,7 +430,7 @@
 					//Enter message
 					if("Message")
 						custommessage	= input(usr, "Please enter your message.") as text|null
-						custommessage	= copytext(sanitize(custommessage), 1, MAX_MESSAGE_LEN)
+						custommessage	= sanitize(copytext(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message
 					if("Send")

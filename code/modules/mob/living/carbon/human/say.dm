@@ -23,8 +23,9 @@
 
 	var/message_mode = parse_message_mode(message, "headset")
 
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
+	switch(copytext(message,1,2))
+		if("*") return emote(copytext(message,2))
+		if("^") return custom_emote(1, copytext(message,2))
 
 	if(name != GetVoice())
 		alt_name = "(as [get_id_name("Unknown")])"
@@ -35,6 +36,8 @@
 			message = copytext(message,2)	//it would be really nice if the parse procs could do this for us.
 		else
 			message = copytext(message,3)
+
+	message = trim_left(message)
 
 	//parse the language code and consume it
 	var/datum/language/speaking = parse_language(message)
@@ -61,10 +64,11 @@
 	message = trim(message)
 
 	if(speech_problem_flag)
-		var/list/handle_r = handle_speech_problems(message)
-		message = handle_r[1]
-		verb = handle_r[2]
-		speech_problem_flag = handle_r[3]
+		if(!speaking || !(speaking.flags & NO_STUTTER))
+			var/list/handle_r = handle_speech_problems(message)
+			message = handle_r[1]
+			verb = handle_r[2]
+			speech_problem_flag = handle_r[3]
 
 	if(!message || message == "")
 		return

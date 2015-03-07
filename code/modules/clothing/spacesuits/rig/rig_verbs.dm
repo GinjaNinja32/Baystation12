@@ -120,8 +120,8 @@
 
 /obj/item/weapon/rig/verb/toggle_seals_verb()
 
-	set name = "Toggle Seals"
-	set desc = "Activates or deactivates your rig seals."
+	set name = "Toggle Hardsuit"
+	set desc = "Activates or deactivates your rig."
 	set category = "Hardsuit"
 	set src = usr.contents
 
@@ -140,6 +140,9 @@
 	set desc = "Switches between available vision modes."
 	set category = "Hardsuit"
 	set src = usr.contents
+
+	if(malfunction_check(usr))
+		return
 
 	if(!check_power_cost(usr, 0, 0, 0, 0))
 		return
@@ -168,6 +171,9 @@
 	set category = "Hardsuit"
 	set src = usr.contents
 
+	if(malfunction_check(usr))
+		return
+
 	if(canremove)
 		usr << "<span class='warning'>The suit is not active.</span>"
 		return
@@ -189,6 +195,9 @@
 	set category = "Hardsuit"
 	set src = usr.contents
 
+	if(malfunction_check(usr))
+		return
+	
 	if(!check_power_cost(usr, 0, 0, 0, 0))
 		return
 
@@ -208,6 +217,8 @@
 	var/obj/item/rig_module/module = input("Which module do you wish to select?") as null|anything in selectable
 
 	if(!istype(module))
+		selected_module = null
+		usr << "<font color='blue'><b>Primary system is now: deselected.</b></font>"
 		return
 
 	selected_module = module
@@ -219,6 +230,9 @@
 	set desc = "Toggle a system module."
 	set category = "Hardsuit"
 	set src = usr.contents
+
+	if(malfunction_check(usr))
+		return
 
 	if(!check_power_cost(usr, 0, 0, 0, 0))
 		return
@@ -254,6 +268,9 @@
 	set desc = "Engages a system module."
 	set category = "Hardsuit"
 	set src = usr.contents
+
+	if(malfunction_check(usr))
+		return
 
 	if(canremove)
 		usr << "<span class='warning'>The suit is not active.</span>"

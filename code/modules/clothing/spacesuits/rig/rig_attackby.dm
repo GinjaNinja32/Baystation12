@@ -21,8 +21,8 @@
 			return
 		else if(istype(W, /obj/item/weapon/card/emag))
 			locked_dna = null
-			req_access = null
-			req_one_access = null
+			req_access.Cut()
+			req_one_access.Cut()
 			locked = 0
 			subverted = 1
 			user << "<span class='danger'>You short out the access protocol for the suit.</span>"
@@ -180,7 +180,7 @@
 					installed_modules -= removed
 					update_icon()
 
-			return
+		return
 
 	// If we've gotten this far, all we have left to do before we pass off to root procs
 	// is check if any of the loaded modules want to use the item we've been given.

@@ -111,6 +111,16 @@
 	gun.Fire(target,holder.wearer)
 	return 1
 
+/obj/item/rig_module/mounted/egun
+
+	name = "mounted energy gun"
+	desc = "A forearm-mounted energy projector."
+
+	interface_name = "mounted energy gun"
+	interface_desc = "A forearm-mounted suit-powered energy gun."
+
+	gun_type = /obj/item/weapon/gun/energy/gun/mounted
+
 /obj/item/rig_module/mounted/taser
 
 	name = "mounted taser"
@@ -124,7 +134,7 @@
 	interface_name = "mounted energy gun"
 	interface_desc = "A shoulder-mounted cell-powered energy gun."
 
-	gun_type = /obj/item/weapon/gun/energy/gun/mounted
+	gun_type = /obj/item/weapon/gun/energy/taser/mounted
 
 /obj/item/rig_module/mounted/energy_blade
 
@@ -141,7 +151,7 @@
 	selectable = 1
 	toggleable = 1
 	use_power_cost = 50
-	active_power_cost = 5
+	active_power_cost = 10
 	passive_power_cost = 0
 
 	gun_type = /obj/item/weapon/gun/energy/crossbow/ninja

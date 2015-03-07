@@ -4,7 +4,7 @@
 /obj/item/weapon/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	w_class = 3
 
@@ -246,7 +246,7 @@
 
 /obj/item/weapon/tank/process()
 	//Allow for reactions
-	air_contents.react()
+	air_contents.react() //cooking up air tanks - add phoron and oxygen, then heat above PHORON_MINIMUM_BURN_TEMPERATURE
 	check_status()
 
 

@@ -85,7 +85,7 @@ LOG_PDA
 ## set to 0 to disable that mode
 PROBABILITY EXTENDED 1
 PROBABILITY MALFUNCTION 1
-PROBABILITY NUCLEAR 1
+PROBABILITY MERCENARY 1
 PROBABILITY WIZARD 1
 PROBABILITY CHANGELING 1
 PROBABILITY CULT 1
@@ -321,3 +321,6 @@ EVENT_CUSTOM_START_MAJOR 80;100
 
 ## Uncomment to disable respawning by default.
 #DISABLE_RESPAWN
+
+## Strength of ambient star light. Set to 0 or less to turn off.
+STARLIGHT 0

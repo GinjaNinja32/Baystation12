@@ -28,8 +28,8 @@ em						{font-style: normal;font-weight: bold;}
 /* Admin: Private Messages */
 .pm  .howto				{color: #ff0000;	font-weight: bold;		font-size: 200%;}
 .pm  .in				{color: #ff0000;}
-.pm  .out				{color: #B54A4A;}
-.pm  .other				{color: #164664;}
+.pm  .out				{color: #ff0000;}
+.pm  .other				{color: #0000ff;}
 
 /* Admin: Channels */
 .mod_channel			{color: #735638;	font-weight: bold;}
@@ -70,12 +70,13 @@ h1.alert, h2.alert		{color: #000000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
-.danger					{color: #ff0000;	font-weight: bold;}
-.warning				{color: #ff0000;	font-style: italic;}
+.danger					{color: #ff0000; font-weight: bold;}
+.warning				{color: #ff0000; font-style: italic;}
 .rose					{color: #ff5050;}
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
 .alium					{color: #00ff00;}
+.cult					{color: #800080; font-weight: bold; font-style: italic;}
 
 /* Languages */
 

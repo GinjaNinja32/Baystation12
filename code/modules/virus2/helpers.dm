@@ -11,16 +11,17 @@ proc/infection_check(var/mob/living/carbon/M, var/vector = "Airborne")
 			if(M.internal)
 				score = 6	//not breathing infected air helps greatly
 				var/obj/item/I = M.wear_mask
-				
+
 				//masks provide a small bonus and can replace overall bio protection
-				score = max(score, round(0.06*I.armor["bio"]))
-				if (istype(I, /obj/item/clothing/mask))
-					score += 1 //this should be added after
-		
+				if(I)
+					score = max(score, round(0.06*I.armor["bio"]))
+					if (istype(I, /obj/item/clothing/mask))
+						score += 1 //this should be added after
+
 		if("Contact")
 			if(istype(M, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				
+
 				//gloves provide a larger bonus
 				if (istype(H.gloves, /obj/item/clothing/gloves))
 					score += 2
@@ -45,18 +46,17 @@ proc/infection_check(var/mob/living/carbon/M, var/vector = "Airborne")
 		return 0
 
 	var/protection = M.getarmor(null, "bio")	//gets the full body bio armour value, weighted by body part coverage.
-	
+
 	if (vector == "Airborne")
 		var/obj/item/I = M.wear_mask
 		if (istype(I))
 			protection = max(protection, round(0.06*I.armor["bio"]))
-	
+
 	return prob(protection)
 
 //Checks if table-passing table can reach target (5 tile radius)
 proc/airborne_can_reach(turf/source, turf/target)
 	var/obj/dummy = new(source)
-	dummy.flags = FPRINT | TABLEPASS
 	dummy.pass_flags = PASSTABLE
 
 	for(var/i=0, i<5, i++) if(!step_towards(dummy, target)) break
@@ -77,14 +77,15 @@ proc/airborne_can_reach(turf/source, turf/target)
 	if ("[disease.uniqueID]" in M.virus2)
 		return
 	// if one of the antibodies in the mob's body matches one of the disease's antigens, don't infect
-	if((M.antibodies & disease.antigen) != 0)
+	var/list/antibodies_in_common = M.antibodies & disease.antigen
+	if(antibodies_in_common.len)
 		return
 	if(M.reagents.has_reagent("spaceacillin"))
 		return
-	
+
 	if(!disease.affected_species.len)
 		return
-	
+
 	if (!(M.species.name in disease.affected_species))
 		if (forced)
 			disease.affected_species[1] = M.species.name
@@ -98,7 +99,7 @@ proc/airborne_can_reach(turf/source, turf/target)
 		D.minormutate()
 //		log_debug("Adding virus")
 		M.virus2["[D.uniqueID]"] = D
-		M.hud_updateflag |= 1 << STATUS_HUD
+		BITSET(M.hud_updateflag, STATUS_HUD)
 
 
 //Infects mob M with disease D
@@ -109,12 +110,14 @@ proc/airborne_can_reach(turf/source, turf/target)
 //Infects mob M with random lesser disease, if he doesn't have one
 /proc/infect_mob_random_lesser(var/mob/living/carbon/M)
 	var/datum/disease2/disease/D = new /datum/disease2/disease
+	
 	D.makerandom(1)
 	infect_mob(M, D)
 
 //Infects mob M with random greated disease, if he doesn't have one
 /proc/infect_mob_random_greater(var/mob/living/carbon/M)
 	var/datum/disease2/disease/D = new /datum/disease2/disease
+	
 	D.makerandom(2)
 	infect_mob(M, D)
 
@@ -132,7 +135,7 @@ proc/airborne_can_reach(turf/source, turf/target)
 //			log_debug("Attempting virus [ID]")
 			var/datum/disease2/disease/V = virus2[ID]
 			if(V.spreadtype != vector) continue
-			
+
 			//It's hard to get other people sick if you're in an airtight suit.
 			if(!infection_spreading_check(src, V.spreadtype)) continue
 

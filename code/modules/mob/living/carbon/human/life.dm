@@ -93,8 +93,6 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
-		handle_virus_updates()
-
 		//stuff in the stomach
 		handle_stomach()
 
@@ -111,6 +109,9 @@
 
 	//Handle temperature/pressure differences between body and environment
 	handle_environment(environment)		//Optimized a good bit.
+
+	//Check if we're on fire
+	handle_fire()
 
 	//Status updates, death etc.
 	handle_regular_status_updates()		//Optimized a bit
@@ -134,7 +135,7 @@
 
 	var/pressure_adjustment_coefficient = 1 // Assume no protection at first.
 
-	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE) && head && (head.flags & STOPSPRESSUREDMAGE)) // Complete set of pressure-proof suit worn, assume fully sealed.
+	if(wear_suit && (wear_suit.flags & STOPPRESSUREDAMAGE) && head && (head.flags & STOPPRESSUREDAMAGE)) // Complete set of pressure-proof suit worn, assume fully sealed.
 		pressure_adjustment_coefficient = 0
 
 		// Handles breaches in your space suit. 10 suit damage equals a 100% loss of pressure protection.
@@ -325,7 +326,6 @@
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 	proc/breathe()
-		if(reagents.has_reagent("lexorin")) return
 		if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell)) return
 		if(species && (species.flags & NO_BREATHE || species.flags & IS_SYNTHETIC)) return
 
@@ -438,17 +438,15 @@
 			return
 
 		if(!breath || (breath.total_moles == 0) || suiciding)
+			failed_last_breath = 1
 			if(suiciding)
 				adjustOxyLoss(2)//If you are suiciding, you should die a little bit faster
-				failed_last_breath = 1
 				oxygen_alert = max(oxygen_alert, 1)
 				return 0
 			if(health > config.health_threshold_crit)
 				adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-				failed_last_breath = 1
 			else
 				adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
-				failed_last_breath = 1
 
 			oxygen_alert = max(oxygen_alert, 1)
 
@@ -598,35 +596,39 @@
 			failed_last_breath = 0
 			adjustOxyLoss(-5)
 
-		// Hot air hurts :(
-		if( (breath.temperature < species.cold_level_1 || breath.temperature > species.heat_level_1) && !(COLD_RESISTANCE in mutations))
 
-			if(breath.temperature < species.cold_level_1)
+		// Hot air hurts :(
+		if((breath.temperature < species.cold_level_1 || breath.temperature > species.heat_level_1) && !(COLD_RESISTANCE in mutations))
+
+			if(breath.temperature <= species.cold_level_1)
 				if(prob(20))
 					src << "<span class='danger'>You feel your face freezing and icicles forming in your lungs!</span>"
-			else if(breath.temperature > species.heat_level_1)
+			else if(breath.temperature >= species.heat_level_1)
 				if(prob(20))
 					src << "<span class='danger'>You feel your face burning and a searing heat in your lungs!</span>"
 
-			switch(breath.temperature)
-				if(-INFINITY to species.cold_level_3)
-					apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-					fire_alert = max(fire_alert, 1)
-				if(species.cold_level_3 to species.cold_level_2)
-					apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-					fire_alert = max(fire_alert, 1)
-				if(species.cold_level_2 to species.cold_level_1)
-					apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-					fire_alert = max(fire_alert, 1)
-				if(species.heat_level_1 to species.heat_level_2)
+			if(breath.temperature >= species.heat_level_1)
+				if(breath.temperature < species.heat_level_2)
 					apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
 					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_2 to species.heat_level_3)
+				else if(breath.temperature < species.heat_level_3)
 					apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
 					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_3 to INFINITY)
+				else
 					apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 					fire_alert = max(fire_alert, 2)
+			
+			else if(breath.temperature <= species.cold_level_1)
+				if(breath.temperature > species.cold_level_2)
+					apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
+					fire_alert = max(fire_alert, 1)
+				else if(breath.temperature > species.cold_level_3)
+					apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
+					fire_alert = max(fire_alert, 1)
+				else
+					apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
+					fire_alert = max(fire_alert, 1)
+
 
 			//breathing in hot/cold air also heats/cools you a bit
 			var/temp_adj = breath.temperature - bodytemperature
@@ -643,6 +645,10 @@
 			//world << "Breath: [breath.temperature], [src]: [bodytemperature], Adjusting: [temp_adj]"
 			bodytemperature += temp_adj
 
+		else if(breath.temperature >= species.heat_discomfort_level)
+			species.get_environment_discomfort(src,"heat")
+		else if(breath.temperature <= species.cold_discomfort_level)
+			species.get_environment_discomfort(src,"cold")
 
 		breath.update_values()
 		return 1
@@ -692,43 +698,38 @@
 
 			//Use heat transfer as proportional to the gas density. However, we only care about the relative density vs standard 101 kPa/20 C air. Therefore we can use mole ratios
 			var/relative_density = environment.total_moles / MOLES_CELLSTANDARD
-			temp_adj *= relative_density
-
-			if (temp_adj > BODYTEMP_HEATING_MAX) temp_adj = BODYTEMP_HEATING_MAX
-			if (temp_adj < BODYTEMP_COOLING_MAX) temp_adj = BODYTEMP_COOLING_MAX
-			//world << "Environment: [loc_temp], [src]: [bodytemperature], Adjusting: [temp_adj]"
-			bodytemperature += temp_adj
+			bodytemperature += between(BODYTEMP_COOLING_MAX, temp_adj*relative_density, BODYTEMP_HEATING_MAX)
 
 		// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
-		if(bodytemperature > species.heat_level_1)
+		if(bodytemperature >= species.heat_level_1)
 			//Body temperature is too hot.
 			fire_alert = max(fire_alert, 1)
 			if(status_flags & GODMODE)	return 1	//godmode
-			switch(bodytemperature)
-				if(species.heat_level_1 to species.heat_level_2)
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_2 to species.heat_level_3)
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_3 to INFINITY)
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
-					fire_alert = max(fire_alert, 2)
+			
+			if(bodytemperature < species.heat_level_2)
+				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
+				fire_alert = max(fire_alert, 2)
+			else if(bodytemperature < species.heat_level_3)
+				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+				fire_alert = max(fire_alert, 2)
+			else
+				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
+				fire_alert = max(fire_alert, 2)
 
-		else if(bodytemperature < species.cold_level_1)
+		else if(bodytemperature <= species.cold_level_1)
 			fire_alert = max(fire_alert, 1)
 			if(status_flags & GODMODE)	return 1	//godmode
+			
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				switch(bodytemperature)
-					if(species.cold_level_2 to species.cold_level_1)
-						take_overall_damage(burn=COLD_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-						fire_alert = max(fire_alert, 1)
-					if(species.cold_level_3 to species.cold_level_2)
-						take_overall_damage(burn=COLD_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-						fire_alert = max(fire_alert, 1)
-					if(-INFINITY to species.cold_level_3)
-						take_overall_damage(burn=COLD_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
-						fire_alert = max(fire_alert, 1)
+				if(bodytemperature > species.cold_level_2)
+					take_overall_damage(burn=COLD_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
+					fire_alert = max(fire_alert, 1)
+				else if(bodytemperature > species.cold_level_3)
+					take_overall_damage(burn=COLD_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+					fire_alert = max(fire_alert, 1)
+				else
+					take_overall_damage(burn=COLD_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
+					fire_alert = max(fire_alert, 1)
 
 		// Account for massive pressure differences.  Done by Polymorph
 		// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
@@ -783,6 +784,8 @@
 
 		if (abs(body_temperature_difference) < 0.5)
 			return //fuck this precision
+		if (on_fire)
+			return //too busy for pesky convection
 
 		if(bodytemperature < species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
 			if(nutrition >= 2) //If we are very, very cold we'll use up quite a bit of nutriment to heat us up.
@@ -1039,8 +1042,7 @@
 
 				if(halloss > 100)
 					src << "<span class='notice'>You're in too much pain to keep going...</span>"
-					for(var/mob/O in oviewers(src, null))
-						O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
+					src.visible_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.")
 					Paralyse(10)
 					setHalLoss(99)
 
@@ -1236,7 +1238,7 @@
 			if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
 			if(healths)		healths.icon_state = "health7"	//DEAD healthmeter
 			if(client)
-				if(client.view != world.view) // If mob moves while zoomed in with device, unzoom them.
+				if(client.view != world.view) // If mob dies while zoomed in with device, unzoom them.
 					for(var/obj/item/item in contents)
 						if(item.zoom)
 							item.zoom()
@@ -1451,47 +1453,6 @@
 			if(!currentTurf.lighting_lumcount)
 				playsound_local(src,pick(scarySounds),50, 1, -1)
 
-	proc/handle_virus_updates()
-		if(status_flags & GODMODE)	return 0	//godmode
-		if(bodytemperature > 406)
-			for(var/datum/disease/D in viruses)
-				D.cure()
-			for (var/ID in virus2)
-				var/datum/disease2/disease/V = virus2[ID]
-				V.cure(src)
-		if(life_tick % 3) //don't spam checks over all objects in view every tick.
-			for(var/obj/effect/decal/cleanable/O in view(1,src))
-				if(istype(O,/obj/effect/decal/cleanable/blood))
-					var/obj/effect/decal/cleanable/blood/B = O
-					if(B.virus2.len)
-						for (var/ID in B.virus2)
-							var/datum/disease2/disease/V = B.virus2[ID]
-							infect_virus2(src,V.getcopy())
-
-				else if(istype(O,/obj/effect/decal/cleanable/mucus))
-					var/obj/effect/decal/cleanable/mucus/M = O
-					if(M.virus2.len)
-						for (var/ID in M.virus2)
-							var/datum/disease2/disease/V = M.virus2[ID]
-							infect_virus2(src,V.getcopy())
-
-
-		if(virus2.len)
-			for (var/ID in virus2)
-				var/datum/disease2/disease/V = virus2[ID]
-				if(isnull(V)) // Trying to figure out a runtime error that keeps repeating
-					CRASH("virus2 nulled before calling activate()")
-				else
-					V.activate(src)
-				// activate may have deleted the virus
-				if(!V) continue
-
-				// check if we're immune
-				if(V.antigen & src.antibodies)
-					V.dead = 1
-
-		return
-
 	proc/handle_stomach()
 		spawn(0)
 			for(var/mob/living/M in stomach_contents)
@@ -1605,8 +1566,7 @@
 
 
 /mob/living/carbon/human/proc/handle_hud_list()
-
-	if(hud_updateflag & 1 << HEALTH_HUD)
+	if (BITTEST(hud_updateflag, HEALTH_HUD))
 		var/image/holder = hud_list[HEALTH_HUD]
 		if(stat == 2)
 			holder.icon_state = "hudhealth-100" 	// X_X
@@ -1614,8 +1574,15 @@
 			var/percentage_health = RoundHealth((health-config.health_threshold_crit)/(maxHealth-config.health_threshold_crit)*100)
 			holder.icon_state = "hud[percentage_health]"
 		hud_list[HEALTH_HUD] = holder
-
-	if(hud_updateflag & 1 << STATUS_HUD)
+		
+	if (BITTEST(hud_updateflag, LIFE_HUD))
+		var/image/holder = hud_list[STATUS_HUD]
+		if(stat == DEAD)
+			holder.icon_state = "huddead"
+		else
+			holder.icon_state = "hudhealthy"
+	
+	if (BITTEST(hud_updateflag, STATUS_HUD))
 		var/foundVirus = 0
 		for(var/datum/disease/D in viruses)
 			if(!D.hidden[SCANNER])
@@ -1651,8 +1618,8 @@
 
 		hud_list[STATUS_HUD] = holder
 		hud_list[STATUS_HUD_OOC] = holder2
-
-	if(hud_updateflag & 1 << ID_HUD)
+	
+	if (BITTEST(hud_updateflag, ID_HUD))
 		var/image/holder = hud_list[ID_HUD]
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetID()
@@ -1665,8 +1632,8 @@
 
 
 		hud_list[ID_HUD] = holder
-
-	if(hud_updateflag & 1 << WANTED_HUD)
+	
+	if (BITTEST(hud_updateflag, WANTED_HUD))
 		var/image/holder = hud_list[WANTED_HUD]
 		holder.icon_state = "hudblank"
 		var/perpname = name
@@ -1691,8 +1658,11 @@
 						holder.icon_state = "hudreleased"
 						break
 		hud_list[WANTED_HUD] = holder
-
-	if(hud_updateflag & 1 << IMPLOYAL_HUD || hud_updateflag & 1 << IMPCHEM_HUD || hud_updateflag & 1 << IMPTRACK_HUD)
+	
+	if (  BITTEST(hud_updateflag, IMPLOYAL_HUD) \
+	   || BITTEST(hud_updateflag,  IMPCHEM_HUD) \
+	   || BITTEST(hud_updateflag, IMPTRACK_HUD))
+		
 		var/image/holder1 = hud_list[IMPTRACK_HUD]
 		var/image/holder2 = hud_list[IMPLOYAL_HUD]
 		var/image/holder3 = hud_list[IMPCHEM_HUD]
@@ -1712,9 +1682,9 @@
 
 		hud_list[IMPTRACK_HUD] = holder1
 		hud_list[IMPLOYAL_HUD] = holder2
-		hud_list[IMPCHEM_HUD] = holder3
-
-	if(hud_updateflag & 1 << SPECIALROLE_HUD)
+		hud_list[IMPCHEM_HUD]  = holder3
+	
+	if (BITTEST(hud_updateflag, SPECIALROLE_HUD))
 		var/image/holder = hud_list[SPECIALROLE_HUD]
 		holder.icon_state = "hudblank"
 		if(mind)
@@ -1770,6 +1740,16 @@
 	if(..())
 		speech_problem_flag = 1
 	return stuttering
+
+/mob/living/carbon/human/handle_fire()
+	if(..())
+		return
+	
+	var/burn_temperature = fire_burn_temperature()
+	var/thermal_protection = get_heat_protection(burn_temperature)
+	
+	if (thermal_protection < 1 && bodytemperature < burn_temperature)
+		bodytemperature += round(BODYTEMP_HEATING_MAX*(1-thermal_protection), 1)
 
 #undef HUMAN_MAX_OXYLOSS
 #undef HUMAN_CRIT_MAX_OXYLOSS
