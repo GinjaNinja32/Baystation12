@@ -1,4 +1,3 @@
-#define HEAT_PUMP_MULT 2.5
 
 /obj/machinery/atmospherics/binary/heat_pump
 	name = "heat pump"
@@ -66,6 +65,7 @@
 	data["max_temperature"] = 1000
 	data["target_temperature"] = round(target_temperature)
 	data["powerSetting"] = power_setting
+	data["COP"] = round(cop * 100)
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -101,44 +101,41 @@
 	src.add_fingerprint(usr)
 	return 1
 
+/obj/machinery/atmospherics/binary/heat_pump
+	var/cop = 0
+
 /obj/machinery/atmospherics/binary/heat_pump/process()
 	..()
-	if(stat & (NOPOWER|BROKEN) || !use_power)
+	if(stat & (NOPOWER|BROKEN))
 		pumping = 0
 		update_icon()
 		return
 
-	if (network1 && network2 && air1.total_moles && air2.total_moles)
-		var/cop = HEAT_PUMP_MULT * air1.temperature/air2.temperature
-		if(target_is_output)
-			if(air2.temperature < target_temperature) // output temp < target
-				pumping = 1
-				var/heat_transfer = max(air2.get_thermal_energy_change(target_temperature), 0)
-				heat_transfer = min(heat_transfer, cop * power_rating)
-				var/used_power = heat_transfer / cop
-				var/removed = air1.add_thermal_energy(-heat_transfer)
-				air2.add_thermal_energy(-removed)
-				use_power(used_power)
-				network1.update = 1
-				network2.update = 1
-			else
-				pumping = 0
-		else
-			if(air1.temperature > target_temperature) // input temp > target
-				pumping = 1
-				var/heat_transfer = max(-air1.get_thermal_energy_change(target_temperature), 0)
-				heat_transfer = min(heat_transfer, cop * power_rating)
-				var/used_power = heat_transfer / cop
-				var/removed = air1.add_thermal_energy(-heat_transfer)
-				air2.add_thermal_energy(-removed)
-				use_power(used_power)
-				network1.update = 1
-				network2.update = 1
-			else
-				pumping = 0
+	if(network1 && network2 && air1.total_moles && air2.total_moles)
+		var/datum/gas_mixture/in_gas = air1
+		var/datum/gas_mixture/out_gas = air2
+
+		cop = in_gas.temperature / out_gas.temperature
+
+		if(!use_power) // Do this here so that even if it's turned off, the COP is updated
+			return
+
+		var/target_transfer = 0
+		if(target_is_output && (out_gas.temperature < target_temperature))
+			target_transfer = max(out_gas.get_thermal_energy_change(target_temperature), 0)
+		else if(in_gas.temperature > target_temperature)
+			target_transfer = max(-in_gas.get_thermal_energy_change(target_temperature), 0)
+
+		pumping = (target_transfer != 0)
+		if(pumping)
+			target_transfer = min(target_transfer, cop * power_rating)
+			var/removed = in_gas.add_thermal_energy(-target_transfer)
+			out_gas.add_thermal_energy(-removed * (1 + 1/cop)) // Removed energy plus used energy
+			use_power(-removed / cop)
+			network1.update = 1
+			network2.update = 1
 	else
 		pumping = 0
-
 	update_icon()
 
 //upgrading parts
