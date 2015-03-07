@@ -1,0 +1,67 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/simulated/wall,/area/medical/cryo)
+"c" = (/obj/structure/table/rack,/obj/item/clothing/suit/space,/obj/item/weapon/tank/oxygen/yellow,/obj/item/clothing/mask/gas,/obj/item/clothing/head/helmet/space,/turf/simulated/floor,/area/medical/cryo)
+"d" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/screwdriver,/turf/simulated/floor,/area/medical/cryo)
+"e" = (/obj/machinery/chem_dispenser/meds,/turf/simulated/floor,/area/medical/cryo)
+"f" = (/obj/machinery/power/fractal_reactor,/obj/structure/cable{d2 = 2; icon_state = "0-2"; pixel_y = 0},/turf/simulated/floor,/area/medical/cryo)
+"g" = (/obj/structure/inflatable/door,/obj/structure/window/basic,/turf/simulated/floor,/area/medical/cryo)
+"h" = (/turf/simulated/floor,/area/medical/cryo)
+"i" = (/obj/effect/landmark/start,/turf/simulated/floor,/area/medical/cryo)
+"j" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; pixel_x = 25},/turf/simulated/floor,/area/medical/cryo)
+"k" = (/obj/structure/inflatable/door,/turf/simulated/floor/airless,/area/medical/cryo)
+"l" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/atmospherics/portables_connector{tag = "icon-map_connector (EAST)"; icon_state = "map_connector"; dir = 4},/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor,/area/medical/cryo)
+"m" = (/obj/machinery/atmospherics/pipe/simple/visible/cyan{tag = "icon-intact (SOUTHWEST)"; icon_state = "intact"; dir = 10},/turf/simulated/floor,/area/medical/cryo)
+"n" = (/obj/machinery/atmospherics/portables_connector{tag = "icon-map_connector (EAST)"; icon_state = "map_connector"; dir = 4},/obj/machinery/portable_atmospherics/canister/nitrogen,/turf/simulated/floor,/area/medical/cryo)
+"o" = (/obj/machinery/atmospherics/pipe/simple/visible/purple{tag = "icon-intact (SOUTHWEST)"; icon_state = "intact"; dir = 10},/turf/simulated/floor,/area/medical/cryo)
+"p" = (/obj/machinery/meter/turf{pixel_y = -16},/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4; external_pressure_bound = 100; external_pressure_bound_default = 100; icon_state = "map_vent_out"; tag = "icon-map_vent_out (EAST)"},/turf/simulated/floor/airless,/area/medical/cryo)
+"q" = (/obj/machinery/atmospherics/valve{tag = "icon-map_valve0 (EAST)"; icon_state = "map_valve0"; dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor,/area/medical/cryo)
+"r" = (/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,/obj/machinery/meter,/turf/simulated/floor,/area/medical/cryo)
+"s" = (/obj/machinery/atmospherics/binary/heat_pump{dir = 4; icon_state = "heat_pump"; tag = "icon-heat_pump (EAST)"; target_temperature = 73.15; use_power = 1},/turf/simulated/floor,/area/medical/cryo)
+"t" = (/obj/machinery/atmospherics/pipe/manifold/visible/purple{tag = "icon-map (EAST)"; icon_state = "map"; dir = 4},/obj/machinery/meter,/obj/machinery/light{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor,/area/medical/cryo)
+"u" = (/obj/machinery/atmospherics/unary/vent_pump/siphon/on{dir = 4; external_pressure_bound = 50; external_pressure_bound_default = 50; icon_state = "map_vent_in"; tag = "icon-map_vent_in (EAST)"},/turf/simulated/floor/airless,/area/medical/cryo)
+"v" = (/obj/machinery/atmospherics/pipe/simple/visible/cyan{tag = "icon-intact (EAST)"; icon_state = "intact"; dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/machinery/alarm{dir = 1; icon_state = "alarm0"; pixel_y = -25; tag = "icon-alarm0 (NORTH)"},/turf/simulated/floor,/area/medical/cryo)
+"w" = (/obj/machinery/atmospherics/pipe/manifold/visible/cyan,/obj/machinery/light,/turf/simulated/floor,/area/medical/cryo)
+"x" = (/obj/machinery/atmospherics/pipe/manifold/visible/purple{tag = "icon-map (EAST)"; icon_state = "map"; dir = 4},/turf/simulated/floor,/area/medical/cryo)
+"y" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,/turf/simulated/wall,/area/medical/cryo)
+"z" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{tag = "icon-intact (SOUTHEAST)"; icon_state = "intact"; dir = 6},/turf/space,/area/space)
+"A" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 4},/turf/space,/area/space)
+"B" = (/obj/machinery/atmospherics/pipe/cap/visible{tag = "icon-cap (EAST)"; icon_state = "cap"; dir = 4},/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 4},/turf/space,/area/space)
+"C" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{tag = "icon-intact (EAST)"; icon_state = "intact"; dir = 4},/obj/machinery/atmospherics/pipe/simple/heat_exchanging{tag = "icon-intact (NORTHWEST)"; icon_state = "intact"; dir = 9},/turf/space,/area/space)
+"D" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{tag = "icon-intact (SOUTHWEST)"; icon_state = "intact"; dir = 10},/turf/space,/area/space)
+"E" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{tag = "icon-intact (NORTHEAST)"; icon_state = "intact"; dir = 5},/turf/space,/area/space)
+"F" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{tag = "icon-intact (NORTHWEST)"; icon_state = "intact"; dir = 9},/turf/space,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaabbbbbbbaaaaaaaaaaaaa
+aaaaaaaaaaaabccdefbaaaaaaaaaaaaa
+aaaaaaaaaaaabghihjbaaaaaaaaaaaaa
+aaaaaaaaaaaabklmnobaaaaaaaaaaaaa
+aaaaaaaaaaaabpqrstbaaaaaaaaaaaaa
+aaaaaaaaaaaabuvwsxbaaaaaaaaaaaaa
+aaaaaaaaaaaabbbbbybaaaaaaaaaaaaa
+aaaaaaaaaaaazAAABCDaaaaaaaaaaaaa
+aaaaaaaaaaaaEAAAAAFaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}
