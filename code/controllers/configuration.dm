@@ -218,6 +218,9 @@ var/list/gamemode_cache = list()
 
 	var/ghosts_can_possess_animals = 0
 
+	var/allow_map_switching = 0 // Whether map switching is allowed
+	var/wait_for_sigusr1_reboot = 0 // Don't allow reboot unless it was caused by SIGUSR1
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for (var/T in L)
@@ -636,18 +639,6 @@ var/list/gamemode_cache = list()
 				if("use_overmap")
 					config.use_overmap = 1
 
-				if("station_levels")
-					config.station_levels = text2numlist(value, ";")
-
-				if("admin_levels")
-					config.admin_levels = text2numlist(value, ";")
-
-				if("contact_levels")
-					config.contact_levels = text2numlist(value, ";")
-
-				if("player_levels")
-					config.player_levels = text2numlist(value, ";")
-
 				if("expected_round_length")
 					config.expected_round_length = MinutesToTicks(text2num(value))
 
@@ -703,6 +694,12 @@ var/list/gamemode_cache = list()
 
 				if ("lobby_screens")
 					config.lobby_screens = text2list(value, ";")
+
+				if("map_switching")
+					config.allow_map_switching = 1
+
+				if("wait_for_sigusr1")
+					config.wait_for_sigusr1_reboot = 1
 
 				else
 					log_misc("Unknown setting in configuration: '[name]'")

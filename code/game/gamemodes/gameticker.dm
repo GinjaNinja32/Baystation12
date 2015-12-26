@@ -323,9 +323,14 @@ var/global/datum/controller/gameticker/ticker
 			spawn
 				declare_completion()
 
-			spawn(50)
-				callHook("roundend")
 
+			spawn(50)
+				if(config.allow_map_switching && all_maps.len > 1)
+					vote.automap()
+					while(vote.time_remaining)
+						sleep(50)
+
+				callHook("roundend")
 				if (universe_has_ended)
 					if(mode.station_was_nuked)
 						feedback_set_details("end_proper","nuke")

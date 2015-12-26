@@ -8,4 +8,7 @@ Thumbs.db
 *.backup
 data/
 cfg/
-
+use_map
+stopserver
+reboot_called
+atupdate
