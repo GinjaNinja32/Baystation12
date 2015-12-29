@@ -1023,13 +1023,6 @@
 		else
 			stat = CONSCIOUS
 
-		//Periodically double-check embedded_flag
-		if(embedded_flag && !(life_tick % 10))
-			var/list/E
-			E = get_visible_implants(0)
-			if(!E.len)
-				embedded_flag = 0
-
 		// Check everything else.
 
 		//Periodically double-check embedded_flag
@@ -1241,7 +1234,7 @@
 				var/base_temperature = species.body_temperature
 				if(base_temperature == null) //some species don't have a set metabolic temperature
 					base_temperature = (species.heat_level_1 + species.cold_level_1)/2
-				
+
 				var/temp_step
 				if (bodytemperature >= base_temperature)
 					temp_step = (species.heat_level_1 - base_temperature)/4
@@ -1599,7 +1592,6 @@
 			sight |= viewflags
 	else if(eyeobj)
 		if(eyeobj.owner != src)
-
 			reset_view(null)
 	else
 		var/isRemoteObserve = 0
@@ -1610,6 +1602,8 @@
 			remoteview_target = null
 			reset_view(null, 0)
 
+	eye_blind =  0
+	blinded = 0
 	update_equipment_vision()
 	species.handle_vision(src)
 
