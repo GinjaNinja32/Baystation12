@@ -16,7 +16,7 @@ while [[ ! -e stopserver ]]; do
 	MAP="$(cat use_map || echo "exodus")"
 
 	# Update
-	cd $GITDIR
+	cd "$GITDIR"
 	if $GIT; then
 		git fetch $REPO
 		git checkout $BRANCH && git pull $REPO $BRANCH
@@ -37,9 +37,10 @@ while [[ ! -e stopserver ]]; do
 
 	# Retrieve compile files
 	if [[ "$GITDIR" != "." ]]; then
-		cp $GITDIR/$DME.dmb .
-		cp $GITDIR/$DME.rsc .
-		cp -r $GITDIR/nano .
+		cp "$GITDIR/$DME.dmb" .
+		cp "$GITDIR/$DME.rsc" .
+		cp -r "$GITDIR/nano" .
+		[[ ! -e btime.so && -e "$GITDIR/btime.so" ]] && cp "$GITDIR/btime.so" .
 	fi
 
 	# Reboot or start server
