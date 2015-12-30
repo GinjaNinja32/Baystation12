@@ -1,6 +1,4 @@
 
-#include "use_map.dm"
-
 var/datum/map/using_map
 var/list/all_maps = list()
 
@@ -17,10 +15,10 @@ var/list/all_maps = list()
 			all_maps[M.path] = M
 	return 1
 
+
 /datum/map
 	var/name = "Unnamed Map"
 	var/full_name = "Unnamed Map"
-
+	proc/setup_map()
 	var/path
 
-	proc/setup_map()

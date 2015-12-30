@@ -1881,7 +1881,7 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\maps.dm"
-#include "maps\use_map.dm"
+#include "maps\exodus\exodus.dm"
 #include "maps\exodus\exodus_define.dm"
+#include "maps\~mapsystem\maps.dm"
 // END_INCLUDE
