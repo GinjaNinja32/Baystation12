@@ -33,4 +33,3 @@ fi
 
 export DM=''
 return 1
-

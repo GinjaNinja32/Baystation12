@@ -39,7 +39,7 @@ obj/item/weapon/board/attackby(obj/item/I as obj, mob/user as mob)
 	for(i=0;i<64;i++)
 		if(!board["[i]"])
 			board["[i]"] = I
-			return
+			break
 
 	src.updateDialog()
 
@@ -47,30 +47,35 @@ obj/item/weapon/board/attackby(obj/item/I as obj, mob/user as mob)
 
 	var/dat = "<HTML>"
 	dat += "<table border='0'>"
-	var i;
+	var i, stagger;
+	stagger = 0 //so we can have the checkerboard effect
 	for(i=0; i<64; i++)
 		if(i%8 == 0)
 			dat += "<tr>"
+			stagger = !stagger
 		dat += "<td align='center' height='50' width='50' bgcolor="
 		if(selected == i)
 			dat += "'#FF8566'>"
-		else if(i%2 == 0)
+		else if((i + stagger)%2 == 0)
 			dat += "'#66CCFF'>"
 		else
 			dat += "'#252536'>"
-		dat += "<A href='?src=\ref[src];select=[i]'"
+		if(!isobserver(user))
+			dat += "<A href='?src=\ref[src];select=[i]' style='display:block;text-decoration:none;'>"
 		if(board["[i]"])
 			var/obj/item/I = board["[i]"]
 			user << browse_rsc(board_icons["[I.icon] [I.icon_state]"],"[I.icon_state].png")
-			dat += "><image src='[I.icon_state].png' style='border-style: none'>"
+			dat += "<image src='[I.icon_state].png' style='border-style: none'>"
 		else
-			dat += "style='display:block;text-decoration:none;'>&nbsp;"
+			dat += "&nbsp;"
 
-		dat += "</A></td>"
+		if(!isobserver(user))
+			dat += "</A>"
+		dat += "</td>"
 
 	dat += "</table><br>"
 
-	if(selected >= 0)
+	if(selected >= 0 && !isobserver(user))
 		dat += "<br><A href='?src=\ref[src];remove=0'>Remove Selected Piece</A>"
 	user << browse(dat,"window=boardgame;size=500x500")
 	onclose(usr, "boardgame")

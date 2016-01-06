@@ -53,4 +53,3 @@ retval=$?
 rm $dmepath.mdme
 
 exit $retval
-
