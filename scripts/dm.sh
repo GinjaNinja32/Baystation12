@@ -47,8 +47,8 @@ fi
 "$DM" $dmepath.mdme
 retval=$?
 
-mv $dmepath.mdme.dmb $dmepath.dmb
-mv $dmepath.mdme.rsc $dmepath.rsc
+[[ -e $dmepath.mdme.dmb ]] && mv $dmepath.mdme.dmb $dmepath.dmb
+[[ -e $dmepath.mdme.rsc ]] && mv $dmepath.mdme.rsc $dmepath.rsc
 
 rm $dmepath.mdme
 

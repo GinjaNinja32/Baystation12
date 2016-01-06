@@ -40,5 +40,5 @@ script:
   - python tools/TagMatcher/tag-matcher.py ../..
   - python tools/GenerateChangelog/ss13_genchangelog.py html/changelog.html html/changelogs
   - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
-  - DreamMaker baystation12.dme
+  - ./scripts/testAllMaps.sh
 
