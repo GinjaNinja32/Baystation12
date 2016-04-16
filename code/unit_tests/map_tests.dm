@@ -41,15 +41,15 @@ datum/unit_test/apc_area_test/start_test()
 			var/bad_msg = "[ascii_red]--------------- [A.name]([A.type])"
 
 
-			if(isnull(A.apc) && !(A.type in exempt_from_apc) && !(using_map.exempt_areas[A.type] & using_map.NO_APC))
+			if(isnull(A.apc) && !(A.type in exempt_from_apc) && !(using_map.exempt_areas[A.type] & NO_APC))
 				log_unit_test("[bad_msg] lacks an APC.[ascii_reset]")
 				area_good = 0
 
-			if(!A.air_scrub_info.len && !(A.type in exempt_from_atmos) && !(using_map.exempt_areas[A.type] & using_map.NO_SCRUBBER))
+			if(!A.air_scrub_info.len && !(A.type in exempt_from_atmos) && !(using_map.exempt_areas[A.type] & NO_SCRUBBER))
 				log_unit_test("[bad_msg] lacks an Air scrubber.[ascii_reset]")
 				area_good = 0
 
-			if(!A.air_vent_info.len && !(A.type in exempt_from_atmos) && !(using_map.exempt_areas[A.type] & using_map.NO_VENT))
+			if(!A.air_vent_info.len && !(A.type in exempt_from_atmos) && !(using_map.exempt_areas[A.type] & NO_VENT))
 				log_unit_test("[bad_msg] lacks an Air vent.[ascii_reset]")
 				area_good = 0
 
